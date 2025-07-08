@@ -13,7 +13,7 @@ import {
   FaStar,
   FaEnvelope,
   FaBars,
-  FaTimes
+  FaTimes,
 } from "react-icons/fa";
 
 function Website() {
@@ -22,7 +22,7 @@ function Website() {
   const [selectedSection, setSelectedSection] = useState("section-0");
   const [primaryColor, setPrimaryColor] = useState("#C8322F");
   const [secondaryColor, setSecondaryColor] = useState("#FFFFFF");
-  const [activeTabs, setActiveTabs] = useState('configuration');
+  const [activeTabs, setActiveTabs] = useState("configuration");
   const [focusedField, setFocusedField] = useState(null);
   const [promotionData, setPromotionData] = useState({
     type: "discount_on_cart",
@@ -32,18 +32,18 @@ function Website() {
   });
 
   const sectionIcons = {
-    'Hero Section': <FaImage className="text-gray-500" />,
-    'About Section': <FaInfoCircle className="text-gray-500" />,
-    'Featured Food': <FaUtensils className="text-gray-500" />,
-    'Why Choose Us': <FaStar className="text-gray-500" />,
-    'Newsletter': <FaEnvelope className="text-gray-500" />
+    "Hero Section": <FaImage className="text-gray-500" />,
+    "About Section": <FaInfoCircle className="text-gray-500" />,
+    "Featured Food": <FaUtensils className="text-gray-500" />,
+    "Why Choose Us": <FaStar className="text-gray-500" />,
+    Newsletter: <FaEnvelope className="text-gray-500" />,
   };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setPromotionData(prev => ({
+    setPromotionData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -55,22 +55,23 @@ function Website() {
     CrimsonLight: {
       primary: "#C8322F",
       secondary: "#FFFFFF",
-      name: "Crimson Light"
+      name: "Crimson Light",
     },
     SunsetGlow: {
       primary: "#FF7E5F",
       secondary: "#FEB47B",
-      name: "Sunset Glow"
+      name: "Sunset Glow",
     },
     Custom: {
       primary: "#3A86FF",
       secondary: "#8338EC",
-      name: "Custom"
-    }
+      name: "Custom",
+    },
   };
 
   const handleThemeSelect = (theme) => {
-    if (themes[theme]) { // Only update if theme exists
+    if (themes[theme]) {
+      // Only update if theme exists
       setSelectedTheme(theme);
       setPrimaryColor(themes[theme].primary);
       setSecondaryColor(themes[theme].secondary);
@@ -78,7 +79,7 @@ function Website() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
         <div className="flex flex-col">
@@ -116,25 +117,43 @@ function Website() {
         {/* Tabs with icons */}
         <div className="flex border-b border-gray-300 dark:border-gray-600 mb-6">
           <button
-            className={`flex items-center px-4 py-2 font-medium cursor-pointer ${activeTab === "homepage" ? 'border-b-2 border-primary text-primary' : 'text-gray-600 dark:text-gray-300'}`}
+            className={`flex items-center px-4 py-2 font-medium cursor-pointer ${
+              activeTab === "homepage"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-600 dark:text-gray-300"
+            }`}
             onClick={() => setActiveTab("homepage")}
           >
             <FaHome className="mr-2" />
             Homepage
           </button>
           <button
-            className={`flex items-center px-4 py-2 font-medium cursor-pointer ${activeTab === "colors" ? 'border-b-2 border-primary text-primary' : 'text-gray-600 dark:text-gray-300'}`}
+            className={`flex items-center px-4 py-2 font-medium cursor-pointer ${
+              activeTab === "colors"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-600 dark:text-gray-300"
+            }`}
             onClick={() => setActiveTab("colors")}
           >
             <FaPalette className="mr-2" />
             Colors
+            <span className="ml-2 bg-yellow-300 text-black text-xs px-2 py-1.5 rounded-full">
+              New
+            </span>
           </button>
           <button
-            className={`flex items-center px-4 py-2 font-medium cursor-pointer ${activeTab === "themes" ? 'border-b-2 border-primary text-primary' : 'text-gray-600 dark:text-gray-300'}`}
+            className={`flex items-center px-4 py-2 font-medium cursor-pointer ${
+              activeTab === "themes"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-600 dark:text-gray-300"
+            }`}
             onClick={() => setActiveTab("themes")}
           >
             <FaPaintBrush className="mr-2" />
             Themes
+            <span className="ml-2 bg-yellow-300 text-black text-xs px-2 py-1.5 rounded-full">
+              New
+            </span>
           </button>
         </div>
 
@@ -145,13 +164,20 @@ function Website() {
             <div className="flex flex-col md:flex-row gap-8">
               {/* Left side - Section selection */}
               <div className="w-full md:w-1/3 space-y-4">
-                {['Hero Section', 'About Section', 'Featured Food', 'Why Choose Us', 'Newsletter'].map((section, index) => (
+                {[
+                  "Hero Section",
+                  "About Section",
+                  "Featured Food",
+                  "Why Choose Us",
+                  "Newsletter",
+                ].map((section, index) => (
                   <div
                     key={index}
-                    className={`flex items-center justify-between gap-3 p-3 rounded-md border cursor-pointer transition-colors ${selectedSection === `section-${index}`
-                      ? 'border-primary-200 bg-gray-100 dark:bg-gray-700'
-                      : 'border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'
-                      }`}
+                    className={`flex items-center justify-between gap-3 p-3 rounded-md border cursor-pointer transition-colors ${
+                      selectedSection === `section-${index}`
+                        ? "border-primary-200 bg-gray-100 dark:bg-gray-700"
+                        : "border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    }`}
                     onClick={() => setSelectedSection(`section-${index}`)}
                   >
                     <div className="flex items-center gap-3">
@@ -167,11 +193,13 @@ function Website() {
 
               {/* Right side - Section preview */}
               <div className="w-full md:w-2/3">
-                {selectedSection === 'section-0' && (
+                {selectedSection === "section-0" && (
                   <div className="border border-gray-200 dark:border-gray-600 rounded-md">
                     {/* Top header with title and save button */}
                     <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600">
-                      <h3 className="text-lg text-gray-500 bg-gray-100 rounded-sm px-3 py-3 font-semibold">Hero Section</h3>
+                      <h3 className="text-lg text-gray-500 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-sm px-3 py-3 font-semibold dark:border dark:border-gray-500">
+                        Hero Section
+                      </h3>
                       <button className="bg-secondary hover:bg-primary cursor-pointer text-white px-4 py-3 rounded-sm font-medium hover:bg-opacity-90 transition">
                         Save
                       </button>
@@ -181,20 +209,22 @@ function Website() {
                       <div className="border-b border-gray-200 dark:border-gray-600">
                         <div className="flex">
                           <button
-                            onClick={() => setActiveTabs('configuration')}
-                            className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'configuration'
-                              ? 'border-b-2 border-primary text-primary'
-                              : 'text-gray-500 dark:text-gray-400'
-                              }`}
+                            onClick={() => setActiveTabs("configuration")}
+                            className={`px-4 py-2 font-medium cursor-pointer ${
+                              activeTabs === "configuration"
+                                ? "border-b-2 border-primary text-primary"
+                                : "text-gray-500 dark:text-gray-400"
+                            }`}
                           >
                             Configuration
                           </button>
                           <button
-                            onClick={() => setActiveTabs('localize')}
-                            className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'localize'
-                              ? 'border-b-2 border-primary text-primary'
-                              : 'text-gray-500 dark:text-gray-400'
-                              }`}
+                            onClick={() => setActiveTabs("localize")}
+                            className={`px-4 py-2 font-medium cursor-pointer ${
+                              activeTabs === "localize"
+                                ? "border-b-2 border-primary text-primary"
+                                : "text-gray-500 dark:text-gray-400"
+                            }`}
                           >
                             Localize
                           </button>
@@ -205,24 +235,29 @@ function Website() {
                     {/* Tab content areas */}
                     <div className="p-4">
                       {/* Configuration tab content would go here */}
-                      {activeTabs === 'configuration' && (
+                      {activeTabs === "configuration" && (
                         <div className="max-w-sm space-y-4">
                           <div className="flex flex-row items-center justify-between px-4 py-2 border border-gray-300 rounded-md">
-                            <span className="">
-                              Button Link
-                            </span>
+                            <span className="">Button Link</span>
                             <FaChevronRight className="text-gray-400 text-sm" />
                           </div>
                           <div className="space-y-4">
-                            <div className={`flex items-center border ${focusedField === 'stores' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                            <div
+                              className={`flex items-center border ${
+                                focusedField === "stores"
+                                  ? "border-primary"
+                                  : "border-gray-300 dark:border-gray-600"
+                              } rounded-md transition-colors`}
+                            >
                               <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
-                                Redirect to <span className="text-red-500">*</span>
+                                Redirect to{" "}
+                                <span className="text-red-500">*</span>
                               </span>
                               <select
                                 name="stores"
                                 value={promotionData.stores}
                                 onChange={handleInputChange}
-                                onFocus={() => handleFocus('stores')}
+                                onFocus={() => handleFocus("stores")}
                                 onBlur={handleBlur}
                                 className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                               >
@@ -230,45 +265,56 @@ function Website() {
                                 <option value="all">Custom URL</option>
                               </select>
                             </div>
-                            <div className={`flex items-center border ${focusedField === 'name' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                            <div
+                              className={`flex items-center border ${
+                                focusedField === "name"
+                                  ? "border-primary"
+                                  : "border-gray-300 dark:border-gray-600"
+                              } rounded-md transition-colors`}
+                            >
                               <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
-                                Heading  <span className="text-red-500">*</span>
+                                Heading <span className="text-red-500">*</span>
                               </span>
                               <input
                                 type="text"
                                 name="name"
                                 value={promotionData.name}
                                 onChange={handleInputChange}
-                                onFocus={() => handleFocus('name')}
+                                onFocus={() => handleFocus("name")}
                                 onBlur={handleBlur}
                                 className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                                 placeholder="Enter promotion name"
                               />
                             </div>
                             {/* Description */}
-                            <div className={`flex flex-col border ${focusedField === 'description' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                            <div
+                              className={`flex flex-col border ${
+                                focusedField === "description"
+                                  ? "border-primary"
+                                  : "border-gray-300 dark:border-gray-600"
+                              } rounded-md transition-colors`}
+                            >
                               <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-                                Description <span className="text-red-500">*</span>
+                                Description{" "}
+                                <span className="text-red-500">*</span>
                               </span>
                               <textarea
                                 name="description"
                                 value={promotionData.description}
                                 onChange={handleInputChange}
-                                onFocus={() => handleFocus('description')}
+                                onFocus={() => handleFocus("description")}
                                 onBlur={handleBlur}
                                 className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md"
                                 placeholder="Enter description"
                                 rows={3}
                               />
                             </div>
-
                           </div>
                         </div>
-
                       )}
 
                       {/* Localize tab content would go here */}
-                      {activeTabs === 'localize' && (
+                      {activeTabs === "localize" && (
                         <div>
                           <div className="flex flex-row items-center gap-4">
                             <span>Text localization </span>
@@ -279,10 +325,12 @@ function Website() {
                     </div>
                   </div>
                 )}
-                {selectedSection === 'section-1' && (
+                {selectedSection === "section-1" && (
                   <div className="border border-gray-200 dark:border-gray-600 rounded-md">
                     <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600">
-                      <h3 className="text-lg bg-gray-100 rounded-sm px-3 py-3 font-semibold">Hero Section</h3>
+                      <h3 className="text-lg text-gray-500 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-sm px-3 py-3 font-semibold dark:border dark:border-gray-500">
+                        Hero Section
+                      </h3>
                       <button className="bg-secondary hover:bg-primary cursor-pointer text-white px-4 py-3 rounded-sm font-medium hover:bg-opacity-90 transition">
                         Save
                       </button>
@@ -291,29 +339,33 @@ function Website() {
                     <div className="border-b border-gray-200 dark:border-gray-600">
                       <div className="flex">
                         <button
-                          onClick={() => setActiveTabs('configuration')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'configuration'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("configuration")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "configuration"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Configuration
                         </button>
                         <button
-                          onClick={() => setActiveTabs('localize')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'localize'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("localize")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "localize"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Localize
                         </button>
                       </div>
                     </div>
                     <div className="p-4">
-                      {activeTabs === 'configuration' && (
+                      {activeTabs === "configuration" && (
                         <div className="border border-gray-200 dark:border-gray-600 rounded-md p-4">
-                          <h3 className="text-lg text-gray-500 mb-4">Image <span className="text-red-400">*</span></h3>
+                          <h3 className="text-lg text-gray-500 mb-4">
+                            Image <span className="text-red-400">*</span>
+                          </h3>
                           <div className="flex flex-col md:flex-col gap-6">
                             <div className="md:w-1/2">
                               <img
@@ -323,31 +375,45 @@ function Website() {
                               />
                             </div>
                             <div className="md:w-1/2 space-y-4">
-                              <div className={`flex items-center border ${focusedField === 'name' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                              <div
+                                className={`flex items-center border ${
+                                  focusedField === "name"
+                                    ? "border-primary"
+                                    : "border-gray-300 dark:border-gray-600"
+                                } rounded-md transition-colors`}
+                              >
                                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
-                                  Heading  <span className="text-red-500">*</span>
+                                  Heading{" "}
+                                  <span className="text-red-500">*</span>
                                 </span>
                                 <input
                                   type="text"
                                   name="name"
                                   value={promotionData.name}
                                   onChange={handleInputChange}
-                                  onFocus={() => handleFocus('name')}
+                                  onFocus={() => handleFocus("name")}
                                   onBlur={handleBlur}
                                   className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                                   placeholder="Enter promotion name"
                                 />
                               </div>
                               {/* Description */}
-                              <div className={`flex flex-col border ${focusedField === 'description' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                              <div
+                                className={`flex flex-col border ${
+                                  focusedField === "description"
+                                    ? "border-primary"
+                                    : "border-gray-300 dark:border-gray-600"
+                                } rounded-md transition-colors`}
+                              >
                                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-                                  Description <span className="text-red-500">*</span>
+                                  Description{" "}
+                                  <span className="text-red-500">*</span>
                                 </span>
                                 <textarea
                                   name="description"
                                   value={promotionData.description}
                                   onChange={handleInputChange}
-                                  onFocus={() => handleFocus('description')}
+                                  onFocus={() => handleFocus("description")}
                                   onBlur={handleBlur}
                                   className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md"
                                   placeholder="Enter description"
@@ -358,7 +424,7 @@ function Website() {
                           </div>
                         </div>
                       )}
-                      {activeTabs === 'localize' && (
+                      {activeTabs === "localize" && (
                         <div>
                           <div className="flex flex-row items-center gap-4">
                             <span>Text localization </span>
@@ -370,10 +436,12 @@ function Website() {
                   </div>
                 )}
 
-                {selectedSection === 'section-2' && (
+                {selectedSection === "section-2" && (
                   <div className="border border-gray-200 dark:border-gray-600 rounded-md">
                     <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600">
-                      <h3 className="text-lg bg-gray-100 rounded-sm px-3 py-3 font-semibold">Hero Section</h3>
+                      <h3 className="text-lg text-gray-500 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-sm px-3 py-3 font-semibold dark:border dark:border-gray-500">
+                        Hero Section
+                      </h3>
                       <button className="bg-secondary hover:bg-primary cursor-pointer text-white px-4 py-3 rounded-sm font-medium hover:bg-opacity-90 transition">
                         Save
                       </button>
@@ -383,53 +451,68 @@ function Website() {
                     <div className="border-b border-gray-200 dark:border-gray-600">
                       <div className="flex">
                         <button
-                          onClick={() => setActiveTabs('configuration')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'configuration'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("configuration")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "configuration"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Configuration
                         </button>
                         <button
-                          onClick={() => setActiveTabs('localize')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'localize'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("localize")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "localize"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Localize
                         </button>
                       </div>
                     </div>
                     <div className="p-4">
-                      {activeTabs === 'configuration' && (
+                      {activeTabs === "configuration" && (
                         <div className="md:w-1/2 space-y-4">
-                          <div className={`flex items-center border ${focusedField === 'name' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                          <div
+                            className={`flex items-center border ${
+                              focusedField === "name"
+                                ? "border-primary"
+                                : "border-gray-300 dark:border-gray-600"
+                            } rounded-md transition-colors`}
+                          >
                             <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
-                              Heading  <span className="text-red-500">*</span>
+                              Heading <span className="text-red-500">*</span>
                             </span>
                             <input
                               type="text"
                               name="name"
                               value={promotionData.name}
                               onChange={handleInputChange}
-                              onFocus={() => handleFocus('name')}
+                              onFocus={() => handleFocus("name")}
                               onBlur={handleBlur}
                               className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                               placeholder="Enter promotion name"
                             />
                           </div>
                           {/* Description */}
-                          <div className={`flex flex-col border ${focusedField === 'description' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                          <div
+                            className={`flex flex-col border ${
+                              focusedField === "description"
+                                ? "border-primary"
+                                : "border-gray-300 dark:border-gray-600"
+                            } rounded-md transition-colors`}
+                          >
                             <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-                              Description <span className="text-red-500">*</span>
+                              Description{" "}
+                              <span className="text-red-500">*</span>
                             </span>
                             <textarea
                               name="description"
                               value={promotionData.description}
                               onChange={handleInputChange}
-                              onFocus={() => handleFocus('description')}
+                              onFocus={() => handleFocus("description")}
                               onBlur={handleBlur}
                               className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md"
                               placeholder="Enter description"
@@ -438,7 +521,7 @@ function Website() {
                           </div>
                         </div>
                       )}
-                      {activeTabs === 'localize' && (
+                      {activeTabs === "localize" && (
                         <div>
                           <div className="flex flex-row items-center gap-4">
                             <span>Text localization </span>
@@ -450,10 +533,12 @@ function Website() {
                   </div>
                 )}
 
-                {selectedSection === 'section-3' && (
+                {selectedSection === "section-3" && (
                   <div className="border border-gray-200 dark:border-gray-600 rounded-md">
                     <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600">
-                      <h3 className="text-lg bg-gray-100 rounded-sm px-3 py-3 font-semibold">Hero Section</h3>
+                      <h3 className="text-lg text-gray-500 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-sm px-3 py-3 font-semibold dark:border dark:border-gray-500">
+                        Hero Section
+                      </h3>
                       <button className="bg-secondary hover:bg-primary cursor-pointer text-white px-4 py-3 rounded-sm font-medium hover:bg-opacity-90 transition">
                         Save
                       </button>
@@ -463,29 +548,33 @@ function Website() {
                     <div className="border-b border-gray-200 dark:border-gray-600">
                       <div className="flex">
                         <button
-                          onClick={() => setActiveTabs('configuration')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'configuration'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("configuration")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "configuration"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Configuration
                         </button>
                         <button
-                          onClick={() => setActiveTabs('localize')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'localize'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("localize")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "localize"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Localize
                         </button>
                       </div>
                     </div>
                     <div className="p-4">
-                      {activeTabs === 'configuration' && (
+                      {activeTabs === "configuration" && (
                         <div className="border border-gray-200 dark:border-gray-600 rounded-md p-4">
-                          <h3 className="text-lg text-gray-500 mb-4">Image <span className="text-red-400">*</span></h3>
+                          <h3 className="text-lg text-gray-500 mb-4">
+                            Image <span className="text-red-400">*</span>
+                          </h3>
                           <div className="flex flex-col md:flex-col gap-6">
                             <div className="md:w-1/2">
                               <img
@@ -495,31 +584,45 @@ function Website() {
                               />
                             </div>
                             <div className="md:w-1/2 space-y-4">
-                              <div className={`flex items-center border ${focusedField === 'name' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                              <div
+                                className={`flex items-center border ${
+                                  focusedField === "name"
+                                    ? "border-primary"
+                                    : "border-gray-300 dark:border-gray-600"
+                                } rounded-md transition-colors`}
+                              >
                                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
-                                  Heading  <span className="text-red-500">*</span>
+                                  Heading{" "}
+                                  <span className="text-red-500">*</span>
                                 </span>
                                 <input
                                   type="text"
                                   name="name"
                                   value={promotionData.name}
                                   onChange={handleInputChange}
-                                  onFocus={() => handleFocus('name')}
+                                  onFocus={() => handleFocus("name")}
                                   onBlur={handleBlur}
                                   className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                                   placeholder="Enter promotion name"
                                 />
                               </div>
                               {/* Description */}
-                              <div className={`flex flex-col border ${focusedField === 'description' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                              <div
+                                className={`flex flex-col border ${
+                                  focusedField === "description"
+                                    ? "border-primary"
+                                    : "border-gray-300 dark:border-gray-600"
+                                } rounded-md transition-colors`}
+                              >
                                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-                                  Description <span className="text-red-500">*</span>
+                                  Description{" "}
+                                  <span className="text-red-500">*</span>
                                 </span>
                                 <textarea
                                   name="description"
                                   value={promotionData.description}
                                   onChange={handleInputChange}
-                                  onFocus={() => handleFocus('description')}
+                                  onFocus={() => handleFocus("description")}
                                   onBlur={handleBlur}
                                   className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md"
                                   placeholder="Enter description"
@@ -530,7 +633,7 @@ function Website() {
                           </div>
                         </div>
                       )}
-                      {activeTabs === 'localize' && (
+                      {activeTabs === "localize" && (
                         <div>
                           <div className="flex flex-row items-center gap-4">
                             <span>Text localization </span>
@@ -542,10 +645,12 @@ function Website() {
                   </div>
                 )}
 
-                {selectedSection === 'section-4' && (
+                {selectedSection === "section-4" && (
                   <div className="border border-gray-200 dark:border-gray-600 rounded-md">
                     <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600">
-                      <h3 className="text-lg bg-gray-100 rounded-sm px-3 py-3 font-semibold">Hero Section</h3>
+                      <h3 className="text-lg text-gray-500 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-sm px-3 py-3 font-semibold dark:border dark:border-gray-500">
+                        Hero Section
+                      </h3>
                       <button className="bg-secondary hover:bg-primary cursor-pointer text-white px-4 py-3 rounded-sm font-medium hover:bg-opacity-90 transition">
                         Save
                       </button>
@@ -555,53 +660,68 @@ function Website() {
                     <div className="border-b border-gray-200 dark:border-gray-600">
                       <div className="flex">
                         <button
-                          onClick={() => setActiveTabs('configuration')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'configuration'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("configuration")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "configuration"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Configuration
                         </button>
                         <button
-                          onClick={() => setActiveTabs('localize')}
-                          className={`px-4 py-2 font-medium cursor-pointer ${activeTabs === 'localize'
-                            ? 'border-b-2 border-primary text-primary'
-                            : 'text-gray-500 dark:text-gray-400'
-                            }`}
+                          onClick={() => setActiveTabs("localize")}
+                          className={`px-4 py-2 font-medium cursor-pointer ${
+                            activeTabs === "localize"
+                              ? "border-b-2 border-primary text-primary"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           Localize
                         </button>
                       </div>
                     </div>
                     <div className="p-4">
-                      {activeTabs === 'configuration' && (
+                      {activeTabs === "configuration" && (
                         <div className="md:w-1/2 space-y-4">
-                          <div className={`flex items-center border ${focusedField === 'name' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                          <div
+                            className={`flex items-center border ${
+                              focusedField === "name"
+                                ? "border-primary"
+                                : "border-gray-300 dark:border-gray-600"
+                            } rounded-md transition-colors`}
+                          >
                             <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
-                              Heading  <span className="text-red-500">*</span>
+                              Heading <span className="text-red-500">*</span>
                             </span>
                             <input
                               type="text"
                               name="name"
                               value={promotionData.name}
                               onChange={handleInputChange}
-                              onFocus={() => handleFocus('name')}
+                              onFocus={() => handleFocus("name")}
                               onBlur={handleBlur}
                               className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                               placeholder="Enter promotion name"
                             />
                           </div>
                           {/* Description */}
-                          <div className={`flex flex-col border ${focusedField === 'description' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                          <div
+                            className={`flex flex-col border ${
+                              focusedField === "description"
+                                ? "border-primary"
+                                : "border-gray-300 dark:border-gray-600"
+                            } rounded-md transition-colors`}
+                          >
                             <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-                              Description <span className="text-red-500">*</span>
+                              Description{" "}
+                              <span className="text-red-500">*</span>
                             </span>
                             <textarea
                               name="description"
                               value={promotionData.description}
                               onChange={handleInputChange}
-                              onFocus={() => handleFocus('description')}
+                              onFocus={() => handleFocus("description")}
                               onBlur={handleBlur}
                               className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md"
                               placeholder="Enter description"
@@ -610,7 +730,7 @@ function Website() {
                           </div>
                         </div>
                       )}
-                      {activeTabs === 'localize' && (
+                      {activeTabs === "localize" && (
                         <div>
                           <div className="flex flex-row items-center gap-4">
                             <span>Text localization </span>
@@ -649,7 +769,7 @@ function Website() {
                 <div>
                   <h3 className="font-medium mb-3">Select theme</h3>
                   <div className="flex gap-4">
-                    {Object.keys(themes).map(theme => (
+                    {Object.keys(themes).map((theme) => (
                       <div
                         key={theme}
                         className="flex flex-row gap-2 items-center cursor-pointer group"
@@ -657,7 +777,11 @@ function Website() {
                       >
                         <div className="relative">
                           <div
-                            className={`w-4 h-4 rounded-full border-2 ${selectedTheme === theme ? 'border-primary' : 'border-gray-300 dark:border-gray-600 group-hover:border-gray-400 dark:group-hover:border-gray-500'}`}
+                            className={`w-4 h-4 rounded-full border-2 ${
+                              selectedTheme === theme
+                                ? "border-primary"
+                                : "border-gray-300 dark:border-gray-600 group-hover:border-gray-400 dark:group-hover:border-gray-500"
+                            }`}
                           ></div>
                           {selectedTheme === theme && (
                             <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center">
@@ -665,7 +789,13 @@ function Website() {
                             </div>
                           )}
                         </div>
-                        <span className={`mt-2 text-sm ${selectedTheme === theme ? 'text-primary font-medium' : 'text-gray-600 dark:text-gray-300'}`}>
+                        <span
+                          className={`mt-2 text-sm ${
+                            selectedTheme === theme
+                              ? "text-primary font-medium"
+                              : "text-gray-600 dark:text-gray-300"
+                          }`}
+                        >
                           {themes[theme].name}
                         </span>
                       </div>
@@ -706,7 +836,8 @@ function Website() {
                     className="h-12 rounded-md flex items-center px-4 text-white font-medium"
                     style={{ backgroundColor: primaryColor }}
                   >
-                    {themes[selectedTheme]?.name || "Custom Theme"} {/* Fallback if theme not found */}
+                    {themes[selectedTheme]?.name || "Custom Theme"}{" "}
+                    {/* Fallback if theme not found */}
                   </div>
                 </div>
 
@@ -716,7 +847,7 @@ function Website() {
                     className="border rounded-md p-4"
                     style={{
                       backgroundColor: secondaryColor,
-                      borderColor: primaryColor
+                      borderColor: primaryColor,
                     }}
                   >
                     <h4
@@ -725,17 +856,15 @@ function Website() {
                     >
                       Section Title
                     </h4>
-                    <p
-                      className="text-sm"
-                      style={{ color: primaryColor }}
-                    >
-                      This is how the secondary color looks in a section. The text uses the primary color for contrast.
+                    <p className="text-sm" style={{ color: primaryColor }}>
+                      This is how the secondary color looks in a section. The
+                      text uses the primary color for contrast.
                     </p>
                     <button
                       className="mt-3 px-3 py-1 rounded text-sm"
                       style={{
                         backgroundColor: primaryColor,
-                        color: secondaryColor
+                        color: secondaryColor,
                       }}
                     >
                       Sample Button
@@ -772,21 +901,29 @@ function Website() {
                   <FaQuestionCircle className="text-primary mr-2" />
                 </div>
 
-                {[1, 2, 3, 4].map(themeNum => (
+                {[1, 2, 3, 4].map((themeNum) => (
                   <div
                     key={themeNum}
-                    className={`flex items-center gap-3 p-3 rounded-md border cursor-pointer ${selectedTheme === `theme-${themeNum}`
-                      ? 'border-primary bg-gray-100 dark:bg-gray-700'
-                      : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
+                    className={`flex items-center gap-3 p-3 rounded-md border cursor-pointer ${
+                      selectedTheme === `theme-${themeNum}`
+                        ? "border-primary bg-gray-100 dark:bg-gray-700"
+                        : "border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    }`}
                     onClick={() => setSelectedTheme(`theme-${themeNum}`)}
                   >
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center 
-              ${selectedTheme === `theme-${themeNum}` ? 'border-primary bg-primary' : 'border-gray-400'}`}>
+                    <div
+                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center 
+              ${
+                selectedTheme === `theme-${themeNum}`
+                  ? "border-primary bg-primary"
+                  : "border-gray-400"
+              }`}
+                    >
                       {selectedTheme === `theme-${themeNum}` && (
                         <div className="w-2 h-2 bg-white rounded-full"></div>
                       )}
                     </div>
-                    <span>Choose a theme  {themeNum}</span>
+                    <span>Choose a theme {themeNum}</span>
                   </div>
                 ))}
               </div>
@@ -794,32 +931,32 @@ function Website() {
               {/* Right side - Theme preview */}
               <div className="w-full md:w-2/3 flex items-center justify-center">
                 <div>
-                  {selectedTheme === 'theme-1' && (
+                  {selectedTheme === "theme-1" && (
                     <img
                       src="https://www.app.menutigr.com/static/media/theme-1.b7b0418ccc92d58a1163.jpg"
                       alt="Theme 1"
-                      className="h-64 object-contain cursor-pointer"
+                      className="h-64 object-contain cursor-pointer rounded-md"
                     />
                   )}
-                  {selectedTheme === 'theme-2' && (
+                  {selectedTheme === "theme-2" && (
                     <img
                       src="https://www.app.menutigr.com/static/media/default-theme.2f52c112484ee3e1970e.png"
                       alt="Theme 2"
-                      className="h-64 object-contain cursor-pointer"
+                      className="h-64 object-contain cursor-pointer rounded-md"
                     />
                   )}
-                  {selectedTheme === 'theme-3' && (
+                  {selectedTheme === "theme-3" && (
                     <img
                       src="https://www.app.menutigr.com/static/media/theme-3.ea28d9238b6d357bbe24.jpg"
                       alt="Theme 3"
-                      className="h-64 object-contain cursor-pointer"
+                      className="h-64 object-contain cursor-pointer rounded-md"
                     />
                   )}
-                  {selectedTheme === 'theme-4' && (
+                  {selectedTheme === "theme-4" && (
                     <img
                       src="https://www.app.menutigr.com/static/media/theme-4.4811d6fd54457c2c4ad8.jpg"
                       alt="Theme 4"
-                      className="h-64 object-contain cursor-pointer"
+                      className="h-64 object-contain cursor-pointer rounded-md"
                     />
                   )}
                 </div>

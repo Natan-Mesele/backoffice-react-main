@@ -127,7 +127,7 @@ function HotActions() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       {/* Main Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow rounded-lg">
         <div className="flex flex-col">
@@ -162,12 +162,13 @@ function HotActions() {
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex border-b border-gray-200 dark:border-gray-700 mb-0 bg-[#fafcff] rounded-md">
+      <div className="flex border-b border-gray-200 dark:border-gray-700 mb-0 bg-[#fafcff] rounded-md dark:bg-gray-800">
         <button
-          className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${activeTab === "create"
-            ? "text-primary border-primary"
-            : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
-            }`}
+          className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${
+            activeTab === "create"
+              ? "text-primary border-primary"
+              : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
+          }`}
           onClick={() => setActiveTab("create")}
         >
           <img
@@ -178,10 +179,11 @@ function HotActions() {
           Create Hot Actions
         </button>
         <button
-          className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${activeTab === "requests"
-            ? "text-primary border-primary"
-            : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
-            }`}
+          className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${
+            activeTab === "requests"
+              ? "text-primary border-primary"
+              : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
+          }`}
           onClick={() => setActiveTab("requests")}
         >
           <FaList className="mr-2" />
@@ -244,10 +246,18 @@ function HotActions() {
               <div className="bg-white dark:bg-gray-800">
                 {/* Header Row */}
                 <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
-                  <div className="col-span-3 font-medium text-gray-800 dark:text-gray-100">Header</div>
-                  <div className="col-span-3 font-medium text-gray-800 dark:text-gray-100">Image</div>
-                  <div className="col-span-4 font-medium text-gray-800 dark:text-gray-100">Message</div>
-                  <div className="col-span-2 font-medium text-gray-800 dark:text-gray-100">Action</div>
+                  <div className="col-span-3 font-medium text-gray-800 dark:text-gray-100">
+                    Header
+                  </div>
+                  <div className="col-span-3 font-medium text-gray-800 dark:text-gray-100">
+                    Image
+                  </div>
+                  <div className="col-span-4 font-medium text-gray-800 dark:text-gray-100">
+                    Message
+                  </div>
+                  <div className="col-span-2 font-medium text-gray-800 dark:text-gray-100">
+                    Action
+                  </div>
                 </div>
 
                 {/* Action Rows */}
@@ -258,13 +268,19 @@ function HotActions() {
                   >
                     {/* Header */}
                     <div className="md:col-span-3">
-                      <p className="md:hidden text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Header</p>
-                      <p className="text-sm text-gray-800 dark:text-gray-100">{action.header}</p>
+                      <p className="md:hidden text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">
+                        Header
+                      </p>
+                      <p className="text-sm text-gray-800 dark:text-gray-100">
+                        {action.header}
+                      </p>
                     </div>
 
                     {/* Image */}
                     <div className="md:col-span-3">
-                      <p className="md:hidden text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Image</p>
+                      <p className="md:hidden text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">
+                        Image
+                      </p>
                       <div className="flex justify-start md:justify-left">
                         <img
                           src={action.image}
@@ -276,8 +292,12 @@ function HotActions() {
 
                     {/* Message */}
                     <div className="md:col-span-4">
-                      <p className="md:hidden text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Message</p>
-                      <p className="text-sm text-gray-800 dark:text-gray-100">{action.message}</p>
+                      <p className="md:hidden text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">
+                        Message
+                      </p>
+                      <p className="text-sm text-gray-800 dark:text-gray-100">
+                        {action.message}
+                      </p>
                     </div>
 
                     {/* Action */}
@@ -289,16 +309,22 @@ function HotActions() {
                         onClick={() =>
                           setCallActions((prev) =>
                             prev.map((a) =>
-                              a.id === action.id ? { ...a, isAvailable: !a.isAvailable } : a
+                              a.id === action.id
+                                ? { ...a, isAvailable: !a.isAvailable }
+                                : a
                             )
                           )
                         }
-                        className={`relative w-10 h-4 flex items-center rounded-full p-1 transition-colors duration-300 ${action.isAvailable ? "bg-[#14b8a6]" : "bg-gray-300"
-                          }`}
+                        className={`relative w-10 h-4 flex items-center rounded-full p-1 transition-colors duration-300 ${
+                          action.isAvailable ? "bg-[#14b8a6]" : "bg-gray-300"
+                        }`}
                       >
                         <div
-                          className={`bg-secondary cursor-pointer w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 ${action.isAvailable ? "translate-x-6" : "translate-x-0"
-                            }`}
+                          className={`bg-secondary cursor-pointer w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 ${
+                            action.isAvailable
+                              ? "translate-x-6"
+                              : "translate-x-0"
+                          }`}
                         />
                       </button>
 
@@ -349,7 +375,8 @@ function HotActions() {
                   <FaChevronLeft />
                 </button>
                 <div className="text-gray-900 dark:text-gray-100 text-md bg-gray-100 px-4 py-2 rounded-md select-none">
-                  <span>Hot Actions</span> <span className="text-gray-400">/</span>{" "}
+                  <span>Hot Actions</span>{" "}
+                  <span className="text-gray-400">/</span>{" "}
                   <span className="text-primary">Edit Hot Action</span>
                 </div>
               </div>
@@ -364,10 +391,11 @@ function HotActions() {
             {/* Edit section tabs */}
             <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
               <button
-                className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${editSection === "hot-actions"
-                  ? "text-primary border-primary"
-                  : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
-                  }`}
+                className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${
+                  editSection === "hot-actions"
+                    ? "text-primary border-primary"
+                    : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
+                }`}
                 onClick={() => setEditSection("hot-actions")}
               >
                 <img
@@ -378,10 +406,11 @@ function HotActions() {
                 Hot Action
               </button>
               <button
-                className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${editSection === "localize"
-                  ? "text-primary border-primary"
-                  : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
-                  }`}
+                className={`flex items-center cursor-pointer px-4 py-2 text-sm font-medium border-b-2 transition-all duration-200 ${
+                  editSection === "localize"
+                    ? "text-primary border-primary"
+                    : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
+                }`}
                 onClick={() => setEditSection("localize")}
               >
                 <FaLanguage className="mr-2" />
@@ -429,9 +458,7 @@ function HotActions() {
                   <label className="w-24 text-sm font-medium text-gray-600 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600">
                     Stores <span className="text-red-500">*</span>
                   </label>
-                  <select
-                    className="flex-1 px-3 py-2 bg-transparent focus:outline-none"
-                  >
+                  <select className="flex-1 px-3 py-2 bg-transparent focus:outline-none">
                     <option>Select store</option>
                     <option>Main Store</option>
                     <option>Branch 1</option>
@@ -463,10 +490,11 @@ function HotActions() {
                       {actionImages.map((img) => (
                         <div
                           key={img.id}
-                          className={`p-1 rounded-md cursor-pointer flex flex-col items-center ${editingAction.image === img.url
-                            ? "ring-2 ring-primary"
-                            : "hover:bg-gray-100 dark:hover:bg-gray-700"
-                            }`}
+                          className={`p-1 rounded-md cursor-pointer flex flex-col items-center ${
+                            editingAction.image === img.url
+                              ? "ring-2 ring-primary"
+                              : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                          }`}
                           onClick={() => handleImageSelect(img.url)}
                         >
                           <img
@@ -486,7 +514,10 @@ function HotActions() {
               <div className="space-y-6">
                 <div className="flex items-center gap-2">
                   <h2 className="text-lg text-gray-500">Text localization</h2>
-                  <FaQuestionCircle className="text-primary hover:text-primary cursor-pointer" title="Help" />
+                  <FaQuestionCircle
+                    className="text-primary hover:text-primary cursor-pointer"
+                    title="Help"
+                  />
                 </div>
               </div>
             )}
@@ -502,10 +533,11 @@ function HotActions() {
                   <button
                     key={label}
                     onClick={() => setSelectedRange(label)}
-                    className={`flex-1 min-w-[100px] sm:min-w-[120px] px-3 cursor-pointer sm:px-4 py-2 rounded-md text-sm transition-colors duration-200 text-center ${selectedRange === label
+                    className={`flex-1 min-w-[100px] sm:min-w-[120px] px-3 cursor-pointer sm:px-4 py-2 rounded-md text-sm transition-colors duration-200 text-center ${
+                      selectedRange === label
                         ? "bg-primary text-white"
                         : "bg-white dark:bg-gray-700 text-primary dark:text-gray-200 border border-primary"
-                      }`}
+                    }`}
                   >
                     {label}
                   </button>
@@ -515,7 +547,10 @@ function HotActions() {
               {/* Dropdowns Container */}
               <div className="flex flex-wrap gap-2 sm:gap-3 w-full sm:w-auto">
                 {/* Payment Dropdown */}
-                <div className="relative flex-1 min-w-[150px] sm:w-48" ref={paymentRef}>
+                <div
+                  className="relative flex-1 min-w-[150px] sm:w-48"
+                  ref={paymentRef}
+                >
                   <div
                     onClick={() => setPaymentDropdownOpen(!paymentDropdownOpen)}
                     className="pl-8 pr-3 py-2 sm:py-2.5 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-sm flex justify-between items-center text-gray-800 dark:text-gray-100 cursor-pointer"
@@ -545,7 +580,10 @@ function HotActions() {
                 </div>
 
                 {/* Status Dropdown */}
-                <div className="relative flex-1 min-w-[150px] sm:w-48" ref={statusRef}>
+                <div
+                  className="relative flex-1 min-w-[150px] sm:w-48"
+                  ref={statusRef}
+                >
                   <div
                     onClick={() => setStatusDropdownOpen(!statusDropdownOpen)}
                     className="pl-8 pr-3 py-2 sm:py-2.5 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-sm flex justify-between items-center text-gray-800 dark:text-gray-100 cursor-pointer"

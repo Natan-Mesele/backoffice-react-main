@@ -70,7 +70,7 @@ function Integration() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
         <div className="flex flex-col">
@@ -477,8 +477,8 @@ function Integration() {
                           <button
                             className="bg-secondary text-white px-4 py-3 rounded-sm hover:bg-primary transition cursor-pointer flex items-center justify-center w-10 h-10"
                             onClick={() => {
-                              setShowEditForm(false); // Hide the edit form
-                              setShowEditPage(true); // Show the table view
+                              setShowEditForm(false);
+                              setShowEditPage(true);
                             }}
                             aria-label="Back"
                             title="Back"

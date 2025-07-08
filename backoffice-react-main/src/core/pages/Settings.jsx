@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   FaRocket,
   FaUtensils,
@@ -15,16 +15,16 @@ import {
 } from "react-icons/fa";
 
 function Settings() {
-  const [currentPage, setCurrentPage] = useState('profile');
+  const [currentPage, setCurrentPage] = useState("profile");
   const [focusedField, setFocusedField] = useState(null);
   const tabs = [
-    { id: 'profile', name: 'Profile', icon: <FaUser /> },
-    { id: 'restaurant', name: 'Restaurant', icon: <FaUtensils /> },
-    { id: 'notification', name: 'Notification', icon: <FaBell /> },
-    { id: 'order', name: 'Order Settings', icon: <FaCog /> },
-    { id: 'developer', name: 'Developer', icon: <FaTools /> },
-    { id: 'billing', name: 'Billing', icon: <FaCreditCard /> },
-    { id: 'qr', name: 'Restaurant QR Code', icon: <FaQrcode /> },
+    { id: "profile", name: "Profile", icon: <FaUser /> },
+    { id: "restaurant", name: "Restaurant", icon: <FaUtensils /> },
+    { id: "notification", name: "Notification", icon: <FaBell /> },
+    { id: "order", name: "Order Settings", icon: <FaCog /> },
+    { id: "developer", name: "Developer", icon: <FaTools /> },
+    { id: "billing", name: "Billing", icon: <FaCreditCard /> },
+    { id: "qr", name: "Restaurant QR Code", icon: <FaQrcode /> },
   ];
   const [profileData, setProfileData] = useState({
     firstName: "",
@@ -41,7 +41,7 @@ function Settings() {
   const [showQRCustomization, setShowQRCustomization] = useState(false);
   const [selectedPattern, setSelectedPattern] = useState(null);
   const [selectedEyeStyle, setSelectedEyeStyle] = useState(null);
-  const [selectedColor, setSelectedColor] = useState('#3B82F6');
+  const [selectedColor, setSelectedColor] = useState("#3B82F6");
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [selectedLogo, setSelectedLogo] = useState(null);
   const [activeDesignTab, setActiveDesignTab] = useState(null);
@@ -68,41 +68,61 @@ function Settings() {
     };
 
     calculateVisibleTabs();
-    window.addEventListener('resize', calculateVisibleTabs);
+    window.addEventListener("resize", calculateVisibleTabs);
 
     return () => {
-      window.removeEventListener('resize', calculateVisibleTabs);
+      window.removeEventListener("resize", calculateVisibleTabs);
     };
   }, []);
 
   const designTabs = [
     {
-      id: 'logo',
-      label: 'Logo',
-      icon: <img src="https://www.app.menutigr.com/static/media/qr.d9e8c248e7e8438effce3b671c66f607.svg" alt="Logo" className="w-5 h-5" />
+      id: "logo",
+      label: "Logo",
+      icon: (
+        <img
+          src="https://www.app.menutigr.com/static/media/qr.d9e8c248e7e8438effce3b671c66f607.svg"
+          alt="Logo"
+          className="w-5 h-5"
+        />
+      ),
     },
     {
-      id: 'pattern',
-      label: 'Pattern',
-      icon: <img src="https://www.app.menutigr.com/static/media/pattern.62d6582682a7206bf0326194d262a1c1.svg" alt="Pattern" className="w-5 h-5" />
+      id: "pattern",
+      label: "Pattern",
+      icon: (
+        <img
+          src="https://www.app.menutigr.com/static/media/pattern.62d6582682a7206bf0326194d262a1c1.svg"
+          alt="Pattern"
+          className="w-5 h-5"
+        />
+      ),
     },
     {
-      id: 'eyes',
-      label: 'Eye Style',
-      icon: <div className="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
-        <div className="w-2 h-2 rounded-full bg-primary"></div>
-      </div>
+      id: "eyes",
+      label: "Eye Style",
+      icon: (
+        <div className="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
+          <div className="w-2 h-2 rounded-full bg-primary"></div>
+        </div>
+      ),
     },
     {
-      id: 'color',
-      label: 'Colors',
-      icon: <img src="https://www.app.menutigr.com/static/media/colors.a1cca20a2aa82f4a5c7dbb292497b6b0.svg" alt="Colors" className="w-5 h-5" />
+      id: "color",
+      label: "Colors",
+      icon: (
+        <img
+          src="https://www.app.menutigr.com/static/media/colors.a1cca20a2aa82f4a5c7dbb292497b6b0.svg"
+          alt="Colors"
+          className="w-5 h-5"
+        />
+      ),
     },
     {
-      id: 'frame',
-      label: 'Frame',
-      icon: <div className="w-5 h-5 border-2 border-primary rounded-sm"></div>
-    }
+      id: "frame",
+      label: "Frame",
+      icon: <div className="w-5 h-5 border-2 border-primary rounded-sm"></div>,
+    },
   ];
 
   const handleBlur = () => {
@@ -115,9 +135,9 @@ function Settings() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProfileData(prev => ({
+    setProfileData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -127,15 +147,15 @@ function Settings() {
 
   const handleSave = () => {
     // Here you would typically send the data to your backend
-    console.log('Saving profile data:', {
+    console.log("Saving profile data:", {
       firstName: profileData.firstName,
       lastName: profileData.lastName,
       description: profileData.description,
-      profileImage: profileData.profileImage
+      profileImage: profileData.profileImage,
     });
 
     // For demo purposes, we'll just show an alert
-    alert('Profile saved successfully!');
+    alert("Profile saved successfully!");
   };
 
   const handleImageUpload = (e) => {
@@ -143,10 +163,10 @@ function Settings() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileData(prev => ({
+        setProfileData((prev) => ({
           ...prev,
           profileImage: file,
-          previewImage: reader.result
+          previewImage: reader.result,
         }));
       };
       reader.readAsDataURL(file);
@@ -177,15 +197,29 @@ function Settings() {
     <div className="bg-yellow-50 rounded-lg p-4">
       <div className="flex items-start gap-3">
         <div className="bg-yellow-100 p-2 rounded-full flex-shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-yellow-600"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
+              clipRule="evenodd"
+            />
           </svg>
         </div>
         <div>
-          <h4 className="font-semibold text-gray-800 mb-1">Always test your QR code</h4>
+          <h4 className="font-semibold text-gray-800 mb-1">
+            Always test your QR code
+          </h4>
           <p className="text-sm text-gray-600">
-            Scan with multiple devices to ensure it works properly before distribution.
-            <span className="block mt-1 text-blue-600 hover:underline cursor-pointer">Learn more about testing →</span>
+            Scan with multiple devices to ensure it works properly before
+            distribution.
+            <span className="block mt-1 text-blue-600 hover:underline cursor-pointer">
+              Learn more about testing →
+            </span>
           </p>
         </div>
       </div>
@@ -194,7 +228,9 @@ function Settings() {
 
   const LogoUploadSection = () => (
     <div>
-      <label className="block text-sm font-medium mb-2">Upload Center Logo</label>
+      <label className="block text-sm font-medium mb-2">
+        Upload Center Logo
+      </label>
       <input
         type="file"
         id="logo-upload"
@@ -211,7 +247,11 @@ function Settings() {
         className="h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-gray-50 transition-colors"
       >
         {selectedLogo ? (
-          <img src={selectedLogo} alt="Selected Logo" className="h-full object-contain" />
+          <img
+            src={selectedLogo}
+            alt="Selected Logo"
+            className="h-full object-contain"
+          />
         ) : (
           <>
             <span className="text-gray-400 text-4xl">+</span>
@@ -234,21 +274,41 @@ function Settings() {
 
   const PatternSelectionSection = () => (
     <div>
-      <label className="block text-sm font-medium mb-2">Select Pattern Style</label>
+      <label className="block text-sm font-medium mb-2">
+        Select Pattern Style
+      </label>
       <div className="grid grid-cols-3 gap-4">
         {[
-          { id: '1', img: 'https://www.app.menutigr.com/static/media/8.ba2bfc7f49910aab84b34dde0776d9c5.svg' },
-          { id: '2', img: 'https://www.app.menutigr.com/static/media/7.94f99087a78ad181db272a3d1dd557a2.svg' },
-          { id: '3', img: 'https://www.app.menutigr.com/static/media/1.c02ba2e1bd3b115050d37b2f9d7b132d.svg' }
+          {
+            id: "1",
+            img: "https://www.app.menutigr.com/static/media/8.ba2bfc7f49910aab84b34dde0776d9c5.svg",
+          },
+          {
+            id: "2",
+            img: "https://www.app.menutigr.com/static/media/7.94f99087a78ad181db272a3d1dd557a2.svg",
+          },
+          {
+            id: "3",
+            img: "https://www.app.menutigr.com/static/media/1.c02ba2e1bd3b115050d37b2f9d7b132d.svg",
+          },
         ].map((pattern) => (
           <div
             key={pattern.id}
             className="flex flex-col items-center gap-1"
             onClick={() => setSelectedPattern(pattern.id)}
           >
-            <div className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${selectedPattern === pattern.id ? 'border-2 border-primary' : 'border border-gray-300'
-              }`}>
-              <img src={pattern.img} alt={`Pattern ${pattern.id}`} className="w-full h-full object-contain" />
+            <div
+              className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${
+                selectedPattern === pattern.id
+                  ? "border-2 border-primary"
+                  : "border border-gray-300"
+              }`}
+            >
+              <img
+                src={pattern.img}
+                alt={`Pattern ${pattern.id}`}
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
         ))}
@@ -258,21 +318,44 @@ function Settings() {
 
   const EyeStyleSection = () => (
     <div>
-      <label className="block text-sm font-medium mb-2">Corner Eye Design</label>
+      <label className="block text-sm font-medium mb-2">
+        Corner Eye Design
+      </label>
       <div className="grid grid-cols-3 gap-4">
         {[
-          { id: 'square', label: 'Square', img: 'https://www.app.menutigr.com/static/media/4.3824d19bacf087be79a128b280199228.svg' },
-          { id: 'rounded', label: 'Rounded', img: 'https://www.app.menutigr.com/static/media/2.1183160711ab9f9167dad1854ece2660.svg' },
-          { id: 'circle', label: 'Circle', img: 'https://www.app.menutigr.com/static/media/1.3bdf90cf728437198ce1109f9d560c32.svg' }
+          {
+            id: "square",
+            label: "Square",
+            img: "https://www.app.menutigr.com/static/media/4.3824d19bacf087be79a128b280199228.svg",
+          },
+          {
+            id: "rounded",
+            label: "Rounded",
+            img: "https://www.app.menutigr.com/static/media/2.1183160711ab9f9167dad1854ece2660.svg",
+          },
+          {
+            id: "circle",
+            label: "Circle",
+            img: "https://www.app.menutigr.com/static/media/1.3bdf90cf728437198ce1109f9d560c32.svg",
+          },
         ].map((eye) => (
           <div
             key={eye.id}
             className="flex flex-col items-center"
             onClick={() => setSelectedEyeStyle(eye.id)}
           >
-            <div className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${selectedEyeStyle === eye.id ? 'border-2 border-primary' : 'border border-gray-300'
-              }`}>
-              <img src={eye.img} alt={`${eye.label} eye style`} className="w-10 h-10 object-contain" />
+            <div
+              className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${
+                selectedEyeStyle === eye.id
+                  ? "border-2 border-primary"
+                  : "border border-gray-300"
+              }`}
+            >
+              <img
+                src={eye.img}
+                alt={`${eye.label} eye style`}
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <span className="text-xs mt-1 text-gray-600">{eye.label}</span>
           </div>
@@ -287,11 +370,12 @@ function Settings() {
         <div>
           <label className="block text-sm font-medium mb-2">Foreground</label>
           <div className="flex gap-2">
-            {['#000000', '#3B82F6', '#EF4444'].map((color) => (
+            {["#000000", "#3B82F6", "#EF4444"].map((color) => (
               <div
                 key={color}
-                className={`w-8 h-8 rounded-full cursor-pointer ${selectedColor === color ? 'border-2 border-gray-400' : ''
-                  }`}
+                className={`w-8 h-8 rounded-full cursor-pointer ${
+                  selectedColor === color ? "border-2 border-gray-400" : ""
+                }`}
                 style={{ backgroundColor: color }}
                 onClick={() => setSelectedColor(color)}
               ></div>
@@ -316,15 +400,22 @@ function Settings() {
     <div>
       <label className="block text-sm font-medium mb-2">Frame Style</label>
       <div className="grid grid-cols-2 gap-3">
-        {['None', 'Simple', 'Rounded', 'Ornamental'].map((frame) => (
+        {["None", "Simple", "Rounded", "Ornamental"].map((frame) => (
           <div
             key={frame}
             className="flex flex-col items-center gap-1"
             onClick={() => setSelectedFrame(frame)}
           >
-            <div className={`w-full aspect-square rounded flex items-center justify-center cursor-pointer ${selectedFrame === frame ? 'border-2 border-blue-400' : 'border border-gray-300'
-              }`}>
-              {frame !== 'None' && <div className="w-3/4 h-3/4 border-2 border-gray-400"></div>}
+            <div
+              className={`w-full aspect-square rounded flex items-center justify-center cursor-pointer ${
+                selectedFrame === frame
+                  ? "border-2 border-blue-400"
+                  : "border border-gray-300"
+              }`}
+            >
+              {frame !== "None" && (
+                <div className="w-3/4 h-3/4 border-2 border-gray-400"></div>
+              )}
             </div>
             <span className="text-xs text-gray-600">{frame}</span>
           </div>
@@ -334,16 +425,16 @@ function Settings() {
   );
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="p-6 w-full max-w-[100vw] bg-gray-200 dark:bg-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold">Integrations</h1>
+            <h1 className="text-2xl font-bold dark:text-gray-300">Settings</h1>
             <FaRocket className="text-primary text-lg sm:text-xl" />
           </div>
           <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mt-1">
-            Manage integrations
+            General Settings
           </span>
         </div>
         <div className="flex items-center space-x-4 border border-gray-300 dark:border-gray-600 rounded-md p-2">
@@ -375,10 +466,21 @@ function Settings() {
             <button
               className="px-2 py-3 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary disabled:opacity-30"
               disabled={visibleStartIndex === 0}
-              onClick={() => setVisibleStartIndex(Math.max(0, visibleStartIndex - 1))}
+              onClick={() =>
+                setVisibleStartIndex(Math.max(0, visibleStartIndex - 1))
+              }
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
               </svg>
             </button>
 
@@ -387,30 +489,49 @@ function Settings() {
               ref={containerRef}
               className="flex flex-1 overflow-x-hidden w-full"
             >
-              {tabs.slice(visibleStartIndex, visibleStartIndex + visibleTabsCount).map((tab, index) => (
-                <button
-                  key={tab.id}
-                  ref={el => tabsRef.current[index] = el}
-                  className={`px-4 py-3 font-medium text-sm cursor-pointer flex-shrink-0 flex items-center ${currentPage === tab.id
-                    ? 'text-primary border-b-2 border-primary'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+              {tabs
+                .slice(visibleStartIndex, visibleStartIndex + visibleTabsCount)
+                .map((tab, index) => (
+                  <button
+                    key={tab.id}
+                    ref={(el) => (tabsRef.current[index] = el)}
+                    className={`px-4 py-3 font-medium text-sm cursor-pointer flex-shrink-0 flex items-center ${
+                      currentPage === tab.id
+                        ? "text-primary border-b-2 border-primary"
+                        : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                     }`}
-                  onClick={() => setCurrentPage(tab.id)}
-                >
-                  <span className="mr-2">{tab.icon}</span>
-                  <span>{tab.name}</span>
-                </button>
-              ))}
+                    onClick={() => setCurrentPage(tab.id)}
+                  >
+                    <span className="mr-2">{tab.icon}</span>
+                    <span>{tab.name}</span>
+                  </button>
+                ))}
             </div>
 
             {/* Right Arrow Button */}
             <button
               className="px-2 py-3 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary disabled:opacity-30"
               disabled={visibleStartIndex + visibleTabsCount >= tabs.length}
-              onClick={() => setVisibleStartIndex(Math.min(tabs.length - visibleTabsCount, visibleStartIndex + 1))}
+              onClick={() =>
+                setVisibleStartIndex(
+                  Math.min(
+                    tabs.length - visibleTabsCount,
+                    visibleStartIndex + 1
+                  )
+                )
+              }
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
               </svg>
             </button>
           </div>
@@ -419,7 +540,7 @@ function Settings() {
         {/* Tab Content */}
         <div className="p-6">
           {/* Profile Tab */}
-          {currentPage === 'profile' && (
+          {currentPage === "profile" && (
             <div className="w-full max-w-screen-lg mx-auto px-4">
               <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
                 <h2 className="text-md bg-gray-100 px-4 py-3 rounded-sm text-gray-600 dark:bg-gray-700 dark:text-gray-300">
@@ -484,10 +605,11 @@ function Settings() {
               <div className="space-y-6 w-full max-w-2xl">
                 {/* First Name */}
                 <div
-                  className={`flex flex-col sm:flex-row items-stretch border ${focusedField === 'firstName'
-                    ? 'border-primary'
-                    : 'border-gray-300 dark:border-gray-600'
-                    } rounded-md transition-colors`}
+                  className={`flex flex-col sm:flex-row items-stretch border ${
+                    focusedField === "firstName"
+                      ? "border-primary"
+                      : "border-gray-300 dark:border-gray-600"
+                  } rounded-md transition-colors`}
                 >
                   <label className="w-full sm:w-40 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b sm:border-b-0 sm:border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                     First Name <span className="text-red-500">*</span>
@@ -497,7 +619,7 @@ function Settings() {
                     name="firstName"
                     value={profileData.firstName}
                     onChange={handleInputChange}
-                    onFocus={() => handleFocus('firstName')}
+                    onFocus={() => handleFocus("firstName")}
                     onBlur={handleBlur}
                     placeholder="Enter first name"
                     className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md sm:rounded-b-none sm:rounded-r-md"
@@ -507,10 +629,11 @@ function Settings() {
 
                 {/* Last Name */}
                 <div
-                  className={`flex flex-col sm:flex-row items-stretch border ${focusedField === 'lastName'
-                    ? 'border-primary'
-                    : 'border-gray-300 dark:border-gray-600'
-                    } rounded-md transition-colors`}
+                  className={`flex flex-col sm:flex-row items-stretch border ${
+                    focusedField === "lastName"
+                      ? "border-primary"
+                      : "border-gray-300 dark:border-gray-600"
+                  } rounded-md transition-colors`}
                 >
                   <label className="w-full sm:w-40 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b sm:border-b-0 sm:border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                     Last Name <span className="text-red-500">*</span>
@@ -520,7 +643,7 @@ function Settings() {
                     name="lastName"
                     value={profileData.lastName}
                     onChange={handleInputChange}
-                    onFocus={() => handleFocus('lastName')}
+                    onFocus={() => handleFocus("lastName")}
                     onBlur={handleBlur}
                     placeholder="Enter last name"
                     className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md sm:rounded-b-none sm:rounded-r-md"
@@ -530,10 +653,11 @@ function Settings() {
 
                 {/* Description */}
                 <div
-                  className={`flex flex-col sm:flex-row border ${focusedField === 'description'
-                    ? 'border-primary'
-                    : 'border-gray-300 dark:border-gray-600'
-                    } rounded-md transition-colors`}
+                  className={`flex flex-col sm:flex-row border ${
+                    focusedField === "description"
+                      ? "border-primary"
+                      : "border-gray-300 dark:border-gray-600"
+                  } rounded-md transition-colors`}
                 >
                   <label className="w-full sm:w-40 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b sm:border-b-0 sm:border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-center">
                     Description <span className="text-red-500 ml-1">*</span>
@@ -542,7 +666,7 @@ function Settings() {
                     name="description"
                     value={profileData.description}
                     onChange={handleInputChange}
-                    onFocus={() => handleFocus('description')}
+                    onFocus={() => handleFocus("description")}
                     onBlur={handleBlur}
                     placeholder="Enter description"
                     rows={3}
@@ -554,7 +678,7 @@ function Settings() {
             </div>
           )}
           {/* Restaurant Tab */}
-          {currentPage === 'restaurant' && (
+          {currentPage === "restaurant" && (
             <div>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-md bg-gray-100 px-4 py-3 rounded-sm text-gray-600 dark:bg-gray-700 dark:text-gray-300">
@@ -572,7 +696,6 @@ function Settings() {
               <div className="border-b border-gray-200 dark:border-gray-700 mb-6"></div>
 
               <div className="max-w-md">
-
                 {/* Cover Image Upload */}
                 <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
                   <div className="flex flex-col w-full">
@@ -618,7 +741,13 @@ function Settings() {
                 {/* Restaurant Information */}
                 <div className="space-y-6">
                   {/* Restaurant Name */}
-                  <div className={`flex items-center border ${focusedField === 'restaurantName' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "restaurantName"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <label className="w-32 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Name <span className="text-red-500">*</span>
                     </label>
@@ -627,7 +756,7 @@ function Settings() {
                       name="restaurantName"
                       value="natila"
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('restaurantName')}
+                      onFocus={() => handleFocus("restaurantName")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                       required
@@ -635,7 +764,13 @@ function Settings() {
                   </div>
 
                   {/* Address */}
-                  <div className={`flex items-center border ${focusedField === 'address' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "address"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <label className="w-32 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Address <span className="text-red-500">*</span>
                     </label>
@@ -643,7 +778,7 @@ function Settings() {
                       type="text"
                       name="address"
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('address')}
+                      onFocus={() => handleFocus("address")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                       required
@@ -651,7 +786,13 @@ function Settings() {
                   </div>
 
                   {/* Email */}
-                  <div className={`flex items-center border ${focusedField === 'email' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "email"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <label className="w-32 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Email <span className="text-red-500">*</span>
                     </label>
@@ -660,7 +801,7 @@ function Settings() {
                       name="email"
                       value="huluale12@gmail.com"
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('email')}
+                      onFocus={() => handleFocus("email")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                       required
@@ -668,7 +809,13 @@ function Settings() {
                   </div>
 
                   {/* Contact Number */}
-                  <div className={`flex items-center border ${focusedField === 'contactNumber' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "contactNumber"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <label className="w-32 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Phone
                     </label>
@@ -676,14 +823,20 @@ function Settings() {
                       type="tel"
                       name="contactNumber"
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('contactNumber')}
+                      onFocus={() => handleFocus("contactNumber")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                     />
                   </div>
 
                   {/* Default Language */}
-                  <div className={`flex items-center border ${focusedField === 'defaultLanguage' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "defaultLanguage"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <label className="w-32 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Language <span className="text-red-500">*</span>
                     </label>
@@ -691,7 +844,7 @@ function Settings() {
                       name="defaultLanguage"
                       value="english"
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('defaultLanguage')}
+                      onFocus={() => handleFocus("defaultLanguage")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                       required
@@ -704,7 +857,13 @@ function Settings() {
                   </div>
 
                   {/* Currency */}
-                  <div className={`flex items-center border ${focusedField === 'currency' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "currency"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <label className="w-32 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Currency <span className="text-red-500">*</span>
                     </label>
@@ -712,7 +871,7 @@ function Settings() {
                       name="currency"
                       value="usd"
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('currency')}
+                      onFocus={() => handleFocus("currency")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                       required
@@ -735,11 +894,10 @@ function Settings() {
                 </div>
               </div>
             </div>
-
           )}
 
           {/* Notification Tab */}
-          {currentPage === 'notification' && (
+          {currentPage === "notification" && (
             <div>
               {/* Header with Save Button (right-aligned) */}
               <div className="">
@@ -771,13 +929,19 @@ function Settings() {
               <div className="max-w-md space-y-6">
                 {/* Order Notification Section */}
                 <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4">
-                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">Order notification sound</h3>
+                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">
+                    Order notification sound
+                  </h3>
 
                   <div className="flex flex-col space-y-4">
                     <div className="flex items-center justify-between border border-gray-300 dark:border-gray-600 rounded-md p-3">
                       <span className="text-sm">Enable</span>
                       <label className="flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          defaultChecked
+                        />
                         <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
                       </label>
                     </div>
@@ -797,13 +961,19 @@ function Settings() {
 
                 {/* Feedback Notification Section */}
                 <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4">
-                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">Feedback notification sound</h3>
+                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">
+                    Feedback notification sound
+                  </h3>
 
                   <div className="flex flex-col space-y-4">
                     <div className="flex items-center justify-between border border-gray-300 dark:border-gray-600 rounded-md p-3">
                       <span className="text-sm">Enable</span>
                       <label className="flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          defaultChecked
+                        />
                         <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
                       </label>
                     </div>
@@ -823,13 +993,19 @@ function Settings() {
 
                 {/* Hot-action Notification Section */}
                 <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4">
-                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">Hot-action notification sound</h3>
+                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">
+                    Hot-action notification sound
+                  </h3>
 
                   <div className="flex flex-col space-y-4">
                     <div className="flex items-center justify-between border border-gray-300 dark:border-gray-600 rounded-md p-3">
                       <span className="text-sm">Enable</span>
                       <label className="flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          defaultChecked
+                        />
                         <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
                       </label>
                     </div>
@@ -850,7 +1026,7 @@ function Settings() {
             </div>
           )}
           {/* Order Settings Tab */}
-          {currentPage === 'order' && (
+          {currentPage === "order" && (
             <div>
               {/* Header with Save Button (full width) */}
               <div className="flex justify-between items-center mb-6">
@@ -872,7 +1048,9 @@ function Settings() {
               <div className="max-w-md">
                 {/* Customers Section */}
                 <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4 mb-6">
-                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">Customers</h3>
+                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">
+                    Customers
+                  </h3>
 
                   <div className="space-y-4">
                     <div className="flex items-center justify-between border border-gray-300 dark:border-gray-600 rounded-md p-3">
@@ -895,12 +1073,15 @@ function Settings() {
 
                 {/* Invoice Section */}
                 <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4">
-                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">Invoice</h3>
+                  <h3 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-4">
+                    Invoice
+                  </h3>
 
                   <div className="space-y-4">
                     <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-md">
                       <label className="w-40 text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-                        Invoice ID Prefix <span className="text-red-500">*</span>
+                        Invoice ID Prefix{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -916,7 +1097,7 @@ function Settings() {
           )}
 
           {/* Developer Tab */}
-          {currentPage === 'developer' && (
+          {currentPage === "developer" && (
             <div>
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
@@ -931,7 +1112,9 @@ function Settings() {
               {/* Content */}
               <div className="max-w-md">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-md font-medium text-gray-800 dark:text-gray-200">Personal Access Tokens</h3>
+                  <h3 className="text-md font-medium text-gray-800 dark:text-gray-200">
+                    Personal Access Tokens
+                  </h3>
                   <button className="text-white text-sm font-medium bg-[#D84343] hover:bg-[#C62828] px-4 py-2 rounded-sm">
                     Revoke All
                   </button>
@@ -950,12 +1133,15 @@ function Settings() {
                     />
                   </div>
 
-                  <div className='flex justify-center mb-4'>
-                    <span className='text-gray-500 bg-gray-300 px-4 py-3 rounded-sm'>Generate New Token</span>
+                  <div className="flex justify-center mb-4">
+                    <span className="text-gray-500 bg-gray-300 px-4 py-3 rounded-sm">
+                      Generate New Token
+                    </span>
                   </div>
 
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Tokens you have generated that can be used to access Menutiger API
+                    Tokens you have generated that can be used to access
+                    Menutiger API
                   </p>
                 </div>
 
@@ -966,14 +1152,16 @@ function Settings() {
                     alt="No tokens"
                     className="h-24 w-24 mb-4"
                   />
-                  <p className="text-gray-500 dark:text-gray-400">No records available</p>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    No records available
+                  </p>
                 </div>
               </div>
             </div>
           )}
 
           {/* Billing Tab */}
-          {currentPage === 'billing' && (
+          {currentPage === "billing" && (
             <div className="p-4 sm:p-6">
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
@@ -986,10 +1174,14 @@ function Settings() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6">
                 {/* Current Plan Section */}
                 <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4 sm:p-6">
-                  <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">Current Plan</h3>
+                  <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">
+                    Current Plan
+                  </h3>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-gray-200 px-3 sm:px-4 py-4 sm:py-6">
                     <div className="flex flex-row gap-2 sm:gap-4 items-center">
-                      <span className="text-lg sm:text-xl font-semibold text-primary">FREEMIUM</span>
+                      <span className="text-lg sm:text-xl font-semibold text-primary">
+                        FREEMIUM
+                      </span>
                       <span className="py-1 px-2 sm:px-3 text-xs bg-secondary hover:bg-primary text-white dark:bg-green-900 dark:text-green-200 rounded-2xl">
                         Active
                       </span>
@@ -1002,9 +1194,13 @@ function Settings() {
 
                 {/* Payment Method Section */}
                 <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4 sm:p-6">
-                  <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">Payment method</h3>
+                  <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">
+                    Payment method
+                  </h3>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-gray-200 px-3 sm:px-4 py-4 sm:py-6">
-                    <span className="text-sm sm:text-md text-gray-400">No payment method added</span>
+                    <span className="text-sm sm:text-md text-gray-400">
+                      No payment method added
+                    </span>
                     <button className="bg-secondary hover:bg-primary text-xs sm:text-sm font-medium px-2 sm:px-3 py-1 sm:py-2 text-white rounded-sm shadow-md mt-2 sm:mt-0 w-full sm:w-auto text-center">
                       Manage
                     </button>
@@ -1021,9 +1217,11 @@ function Settings() {
 
               {/* Upcoming Bill Section */}
               <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4 sm:p-6 mb-6">
-                <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">Upcoming Bill</h3>
-                <div className="overflow-x-auto border border-gray-200 dark:border-gray-700 rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">
+                  Upcoming Bill
+                </h3>
+                <div className="w-full overflow-x-auto border border-gray-200 dark:border-gray-700 rounded-lg">
+                  <table className="w-full min-w-[600px] text-sm">
                     <tbody>
                       <tr className="border-b border-gray-200 dark:border-gray-700">
                         <td className="p-2 sm:p-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium border-r border-gray-200 dark:border-gray-700 w-1/2">
@@ -1055,48 +1253,110 @@ function Settings() {
 
                 {/* Past Invoices Section */}
                 <div className="mt-4">
-                  <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">Past Invoices</h3>
+                  <h3 className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-300 mb-3 sm:mb-4">
+                    Past Invoices
+                  </h3>
                   <div className="border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">
                     <div className="overflow-x-auto">
                       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead className="bg-gray-50 dark:bg-gray-800">
                           <tr>
-                            <th scope="col" className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group">
+                            <th
+                              scope="col"
+                              className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group"
+                            >
                               <div className="flex items-center">
                                 ID
                                 <button className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <svg className="w-3 h-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path fill="currentColor" d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"></path>
+                                  <svg
+                                    className="w-3 h-3"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fas"
+                                    data-icon="arrow-up"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 384 512"
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"
+                                    ></path>
                                   </svg>
                                 </button>
                               </div>
                             </th>
-                            <th scope="col" className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group">
+                            <th
+                              scope="col"
+                              className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group"
+                            >
                               <div className="flex items-center">
                                 Date
                                 <button className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <svg className="w-3 h-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path fill="currentColor" d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"></path>
+                                  <svg
+                                    className="w-3 h-3"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fas"
+                                    data-icon="arrow-up"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 384 512"
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"
+                                    ></path>
                                   </svg>
                                 </button>
                               </div>
                             </th>
-                            <th scope="col" className="px-3 sm:px-6 py-2 sm:py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group">
+                            <th
+                              scope="col"
+                              className="px-3 sm:px-6 py-2 sm:py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group"
+                            >
                               <div className="flex items-center justify-end">
                                 Amount (USD)
                                 <button className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <svg className="w-3 h-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path fill="currentColor" d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"></path>
+                                  <svg
+                                    className="w-3 h-3"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fas"
+                                    data-icon="arrow-up"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 384 512"
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"
+                                    ></path>
                                   </svg>
                                 </button>
                               </div>
                             </th>
-                            <th scope="col" className="px-3 sm:px-6 py-2 sm:py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group">
+                            <th
+                              scope="col"
+                              className="px-3 sm:px-6 py-2 sm:py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider group"
+                            >
                               <div className="flex items-center justify-end">
                                 Status
                                 <button className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <svg className="w-3 h-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path fill="currentColor" d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"></path>
+                                  <svg
+                                    className="w-3 h-3"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fas"
+                                    data-icon="arrow-up"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 384 512"
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"
+                                    ></path>
                                   </svg>
                                 </button>
                               </div>
@@ -1106,7 +1366,10 @@ function Settings() {
                         <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                           <tr className="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td className="px-3 sm:px-6 py-3 whitespace-nowrap">
-                              <a href="#" className="text-xs sm:text-sm text-primary hover:underline dark:text-primary-300 truncate block max-w-[120px] sm:max-w-none">
+                              <a
+                                href="#"
+                                className="text-xs sm:text-sm text-primary hover:underline dark:text-primary-300 truncate block max-w-[120px] sm:max-w-none"
+                              >
                                 in_1Rb4u9BlBJOreIXbfGxIPxBiextenal-link
                               </a>
                             </td>
@@ -1129,10 +1392,9 @@ function Settings() {
                 </div>
               </div>
             </div>
-
           )}
           {/* Restaurant QR Code Tab */}
-          {currentPage === 'qr' && (
+          {currentPage === "qr" && (
             <div>
               <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700 w-full">
                 <div className="flex items-center space-x-3">
@@ -1142,9 +1404,7 @@ function Settings() {
                   </div>
                   <div className="flex items-center gap-2 px-4 py-2 border border-primary dark:border-primary rounded-sm text-sm text-gray-700 dark:text-gray-300">
                     <FaQuestionCircle className="text-primary" />
-                    <span>
-                      Customize your QR code for Restaurant
-                    </span>
+                    <span>Customize your QR code for Restaurant</span>
                   </div>
                 </div>
                 <button
@@ -1155,10 +1415,10 @@ function Settings() {
                       pattern: selectedPattern,
                       eyeStyle: selectedEyeStyle,
                       color: selectedColor,
-                      frame: selectedFrame
+                      frame: selectedFrame,
                     };
-                    console.log('QR Settings Saved:', qrSettings);
-                    alert('QR settings saved successfully!');
+                    console.log("QR Settings Saved:", qrSettings);
+                    alert("QR settings saved successfully!");
                   }}
                 >
                   Save
@@ -1171,8 +1431,16 @@ function Settings() {
                       {designTabs.map((tab) => (
                         <div key={tab.id} className="transition-all">
                           <div
-                            className={`flex justify-between items-center p-3 cursor-pointer transition-colors ${activeDesignTab === tab.id ? 'border border-gray-200 rounded-sm' : 'border border-gray-200 rounded-sm'}`}
-                            onClick={() => setActiveDesignTab(activeDesignTab === tab.id ? null : tab.id)}
+                            className={`flex justify-between items-center p-3 cursor-pointer transition-colors ${
+                              activeDesignTab === tab.id
+                                ? "border border-gray-200 rounded-sm"
+                                : "border border-gray-200 rounded-sm"
+                            }`}
+                            onClick={() =>
+                              setActiveDesignTab(
+                                activeDesignTab === tab.id ? null : tab.id
+                              )
+                            }
                           >
                             <div className="flex items-center gap-2">
                               <span className="text-lg">{tab.icon}</span>
@@ -1187,11 +1455,13 @@ function Settings() {
 
                           {activeDesignTab === tab.id && (
                             <div className="p-4 bg-white animate-fadeIn">
-                              {tab.id === 'logo' && <LogoUploadSection />}
-                              {tab.id === 'pattern' && <PatternSelectionSection />}
-                              {tab.id === 'eyes' && <EyeStyleSection />}
-                              {tab.id === 'color' && <ColorSelectionSection />}
-                              {tab.id === 'frame' && <FrameSelectionSection />}
+                              {tab.id === "logo" && <LogoUploadSection />}
+                              {tab.id === "pattern" && (
+                                <PatternSelectionSection />
+                              )}
+                              {tab.id === "eyes" && <EyeStyleSection />}
+                              {tab.id === "color" && <ColorSelectionSection />}
+                              {tab.id === "frame" && <FrameSelectionSection />}
                             </div>
                           )}
                         </div>

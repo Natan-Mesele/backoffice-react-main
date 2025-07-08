@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   FaRocket,
   FaUtensils,
@@ -23,7 +23,7 @@ import {
 } from "react-icons/fa";
 
 function Stores() {
-  const [currentPage, setCurrentPage] = useState('tables');
+  const [currentPage, setCurrentPage] = useState("tables");
   const [showUserForm, setShowUserForm] = useState(false);
   const [showTableForm, setShowTableForm] = useState(false);
   const [showQRCustomization, setShowQRCustomization] = useState(false);
@@ -33,13 +33,14 @@ function Stores() {
   const [radiusValue, setRadiusValue] = useState(20);
   const [takeawayEnabled, setTakeawayEnabled] = useState(false);
   const [dineInEnabled, setDineInEnabled] = useState(false);
-  const [allowSpecialInstructions, setAllowSpecialInstructions] = useState(false);
+  const [allowSpecialInstructions, setAllowSpecialInstructions] =
+    useState(false);
   const [displayFullFoodName, setDisplayFullFoodName] = useState(false);
-  const [storeMenu, setStoreMenu] = useState('');
+  const [storeMenu, setStoreMenu] = useState("");
   const [selectedEyeStyle, setSelectedEyeStyle] = useState(null);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [editingUserId, setEditingUserId] = useState(null);
-  const [selectedColor, setSelectedColor] = useState('#3B82F6');
+  const [selectedColor, setSelectedColor] = useState("#3B82F6");
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [users, setUsers] = useState([]);
@@ -50,56 +51,122 @@ function Stores() {
     id: null,
   });
   const [userFormData, setUserFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    role: 'Staff' // Default role
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: "Staff", // Default role
   });
   const tabs = [
-    { id: 'tables', name: 'Tables', icon: <FaUser /> },
-    { id: 'users', name: 'Users', icon: <FaUtensils /> },
-    { id: 'hours', name: 'Opening Hours', icon: <FaBell /> },
-    { id: 'social', name: 'Social Accounts', icon: <FaCog /> },
-    { id: 'wifi', name: 'WiFi', icon: <FaTools /> },
-    { id: 'location', name: 'Location Details', icon: <FaCreditCard /> },
-    { id: 'settings', name: 'Settings', icon: <FaQrcode /> },
+    { id: "tables", name: "Tables", icon: <FaUser /> },
+    { id: "users", name: "Users", icon: <FaUtensils /> },
+    { id: "hours", name: "Opening Hours", icon: <FaBell /> },
+    { id: "social", name: "Social Accounts", icon: <FaCog /> },
+    { id: "wifi", name: "WiFi", icon: <FaTools /> },
+    { id: "location", name: "Location Details", icon: <FaCreditCard /> },
+    { id: "settings", name: "Settings", icon: <FaQrcode /> },
   ];
 
   const designTabs = [
     {
-      id: 'logo',
-      label: 'Logo',
-      icon: <img src="https://www.app.menutigr.com/static/media/qr.d9e8c248e7e8438effce3b671c66f607.svg" alt="Logo" className="w-5 h-5" />
+      id: "logo",
+      label: "Logo",
+      icon: (
+        <img
+          src="https://www.app.menutigr.com/static/media/qr.d9e8c248e7e8438effce3b671c66f607.svg"
+          alt="Logo"
+          className="w-5 h-5"
+        />
+      ),
     },
     {
-      id: 'pattern',
-      label: 'Pattern',
-      icon: <img src="https://www.app.menutigr.com/static/media/pattern.62d6582682a7206bf0326194d262a1c1.svg" alt="Pattern" className="w-5 h-5" />
+      id: "pattern",
+      label: "Pattern",
+      icon: (
+        <img
+          src="https://www.app.menutigr.com/static/media/pattern.62d6582682a7206bf0326194d262a1c1.svg"
+          alt="Pattern"
+          className="w-5 h-5"
+        />
+      ),
     },
     {
-      id: 'eyes',
-      label: 'Eye Style',
-      icon: <div className="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
-        <div className="w-2 h-2 rounded-full bg-primary"></div>
-      </div>
+      id: "eyes",
+      label: "Eye Style",
+      icon: (
+        <div className="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
+          <div className="w-2 h-2 rounded-full bg-primary"></div>
+        </div>
+      ),
     },
     {
-      id: 'color',
-      label: 'Colors',
-      icon: <img src="https://www.app.menutigr.com/static/media/colors.a1cca20a2aa82f4a5c7dbb292497b6b0.svg" alt="Colors" className="w-5 h-5" />
+      id: "color",
+      label: "Colors",
+      icon: (
+        <img
+          src="https://www.app.menutigr.com/static/media/colors.a1cca20a2aa82f4a5c7dbb292497b6b0.svg"
+          alt="Colors"
+          className="w-5 h-5"
+        />
+      ),
     },
     {
-      id: 'frame',
-      label: 'Frame',
-      icon: <div className="w-5 h-5 border-2 border-primary rounded-sm"></div>
-    }
+      id: "frame",
+      label: "Frame",
+      icon: <div className="w-5 h-5 border-2 border-primary rounded-sm"></div>,
+    },
   ];
-
 
   const tabsRef = useRef([]);
   const containerRef = useRef(null);
   const [visibleStartIndex, setVisibleStartIndex] = useState(0);
   const [visibleTabsCount, setVisibleTabsCount] = useState(5);
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+  const [showEditPage, setShowEditPage] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleMenuEdit = (id) => {
+    const itemToEdit = savedSchedulers.find((item) => item.id === id);
+    if (itemToEdit) {
+      setEditingItem(itemToEdit);
+      setShowEditPage(true);
+    }
+  };
+
+  const handleMenuDelete = () => {
+    setIsOpen(false);
+    if (onDeleteClick) onDeleteClick();
+  };
+
+  const handleSaveEdit = () => {
+    if (!editingItem?.name.trim()) {
+      alert("Please enter a valid name!");
+      return;
+    }
+
+    setSavedSchedulers(
+      savedSchedulers.map((item) =>
+        item.id === editingItem.id
+          ? { ...item, name: editingItem.name.trim() }
+          : item
+      )
+    );
+    setShowEditPage(false);
+    setEditingItem(null);
+  };
 
   useEffect(() => {
     const calculateVisibleTabs = () => {
@@ -123,10 +190,10 @@ function Stores() {
     };
 
     calculateVisibleTabs();
-    window.addEventListener('resize', calculateVisibleTabs);
+    window.addEventListener("resize", calculateVisibleTabs);
 
     return () => {
-      window.removeEventListener('resize', calculateVisibleTabs);
+      window.removeEventListener("resize", calculateVisibleTabs);
     };
   }, []);
 
@@ -137,13 +204,17 @@ function Stores() {
     }
 
     if (formData.id) {
-      setSavedSchedulers(savedSchedulers.map(item =>
-        item.id === formData.id ? { ...item, name: formData.name.trim() } : item
-      ));
+      setSavedSchedulers(
+        savedSchedulers.map((item) =>
+          item.id === formData.id
+            ? { ...item, name: formData.name.trim() }
+            : item
+        )
+      );
     } else {
       const newItem = {
         id: Date.now(),
-        name: formData.name.trim()
+        name: formData.name.trim(),
       };
       setSavedSchedulers([...savedSchedulers, newItem]);
     }
@@ -158,18 +229,18 @@ function Stores() {
   };
 
   const handleEdit = (id) => {
-    const itemToEdit = savedSchedulers.find(item => item.id === id);
+    const itemToEdit = savedSchedulers.find((item) => item.id === id);
     if (itemToEdit) {
       setFormData({
         name: itemToEdit.name,
-        id: itemToEdit.id
+        id: itemToEdit.id,
       });
       setShowTableForm(true);
     }
   };
 
   const handleDelete = (id) => {
-    setSavedSchedulers(savedSchedulers.filter(item => item.id !== id));
+    setSavedSchedulers(savedSchedulers.filter((item) => item.id !== id));
   };
 
   const handleSaveUser = () => {
@@ -180,11 +251,13 @@ function Stores() {
       firstName: userFormData.firstName,
       lastName: userFormData.lastName,
       email: userFormData.email,
-      accessLevel: userFormData.accessLevel
+      accessLevel: userFormData.accessLevel,
     };
 
     if (editingUserId) {
-      setUsers(users.map(user => user.id === editingUserId ? userData : user));
+      setUsers(
+        users.map((user) => (user.id === editingUserId ? userData : user))
+      );
     } else {
       setUsers([...users, userData]);
     }
@@ -193,30 +266,30 @@ function Stores() {
     setShowUserForm(false);
     setEditingUserId(null);
     setUserFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      accessLevel: ''
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      accessLevel: "",
     });
   };
 
   const handleUserInputChange = (e) => {
     const { name, value } = e.target;
-    setUserFormData(prev => ({ ...prev, [name]: value }));
+    setUserFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleEditUser = (id) => {
-    const userToEdit = users.find(user => user.id === id);
+    const userToEdit = users.find((user) => user.id === id);
     if (userToEdit) {
       setUserFormData({
         firstName: userToEdit.firstName,
         lastName: userToEdit.lastName,
         email: userToEdit.email,
-        password: '',
-        confirmPassword: '',
-        accessLevel: userToEdit.accessLevel
+        password: "",
+        confirmPassword: "",
+        accessLevel: userToEdit.accessLevel,
       });
       setEditingUserId(id);
       setShowUserForm(true);
@@ -224,10 +297,55 @@ function Stores() {
   };
 
   const handleDeleteUser = (id) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(user => user.id !== id));
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      setUsers(users.filter((user) => user.id !== id));
     }
   };
+
+  const EditPage = () => (
+    <div>
+      <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700 w-full">
+        <div className="flex items-center space-x-3">
+          <button
+            className="bg-secondary text-white px-3 py-3 rounded-md hover:bg-primary transition cursor-pointer flex items-center justify-center w-10 h-10"
+            onClick={() => setShowEditPage(false)}
+          >
+            <FaChevronLeft />
+          </button>
+          <div className="text-gray-900 dark:text-gray-100 text-md bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md select-none">
+            <span>Edit Scheduler</span>
+          </div>
+        </div>
+        <button
+          className="bg-secondary text-white px-4 py-3 rounded-sm hover:bg-primary transition cursor-pointer"
+          onClick={handleSaveEdit}
+        >
+          Save
+        </button>
+      </div>
+
+      <div className="space-y-6 max-w-sm">
+        <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 focus-within:border-primary transition-colors">
+          <label className="w-28 text-sm font-medium text-gray-600 dark:text-gray-300 px-3 py-2">
+            Name <span className="text-red-500">*</span>
+          </label>
+          <div className="border-l border-gray-300 dark:border-gray-600 flex-1 px-3 py-2 focus-within:border-primary transition-colors">
+            <input
+              type="text"
+              name="name"
+              value={editingItem?.name || ""}
+              onChange={(e) =>
+                setEditingItem({ ...editingItem, name: e.target.value })
+              }
+              placeholder="Enter name"
+              required
+              className="w-full bg-transparent outline-none"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   const QRPreviewSection = () => (
     <div className="mb-6 flex flex-col items-center">
@@ -249,15 +367,29 @@ function Stores() {
     <div className="bg-yellow-50 rounded-lg p-4">
       <div className="flex items-start gap-3">
         <div className="bg-yellow-100 p-2 rounded-full flex-shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-yellow-600"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
+              clipRule="evenodd"
+            />
           </svg>
         </div>
         <div>
-          <h4 className="font-semibold text-gray-800 mb-1">Always test your QR code</h4>
+          <h4 className="font-semibold text-gray-800 mb-1">
+            Always test your QR code
+          </h4>
           <p className="text-sm text-gray-600">
-            Scan with multiple devices to ensure it works properly before distribution.
-            <span className="block mt-1 text-blue-600 hover:underline cursor-pointer">Learn more about testing →</span>
+            Scan with multiple devices to ensure it works properly before
+            distribution.
+            <span className="block mt-1 text-blue-600 hover:underline cursor-pointer">
+              Learn more about testing →
+            </span>
           </p>
         </div>
       </div>
@@ -266,7 +398,9 @@ function Stores() {
 
   const LogoUploadSection = () => (
     <div>
-      <label className="block text-sm font-medium mb-2">Upload Center Logo</label>
+      <label className="block text-sm font-medium mb-2">
+        Upload Center Logo
+      </label>
       <input
         type="file"
         id="logo-upload"
@@ -283,7 +417,11 @@ function Stores() {
         className="h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-gray-50 transition-colors"
       >
         {selectedLogo ? (
-          <img src={selectedLogo} alt="Selected Logo" className="h-full object-contain" />
+          <img
+            src={selectedLogo}
+            alt="Selected Logo"
+            className="h-full object-contain"
+          />
         ) : (
           <>
             <span className="text-gray-400 text-4xl">+</span>
@@ -306,21 +444,41 @@ function Stores() {
 
   const PatternSelectionSection = () => (
     <div>
-      <label className="block text-sm font-medium mb-2">Select Pattern Style</label>
+      <label className="block text-sm font-medium mb-2 ">
+        Select Pattern Style
+      </label>
       <div className="grid grid-cols-3 gap-4">
         {[
-          { id: '1', img: 'https://www.app.menutigr.com/static/media/8.ba2bfc7f49910aab84b34dde0776d9c5.svg' },
-          { id: '2', img: 'https://www.app.menutigr.com/static/media/7.94f99087a78ad181db272a3d1dd557a2.svg' },
-          { id: '3', img: 'https://www.app.menutigr.com/static/media/1.c02ba2e1bd3b115050d37b2f9d7b132d.svg' }
+          {
+            id: "1",
+            img: "https://www.app.menutigr.com/static/media/8.ba2bfc7f49910aab84b34dde0776d9c5.svg",
+          },
+          {
+            id: "2",
+            img: "https://www.app.menutigr.com/static/media/7.94f99087a78ad181db272a3d1dd557a2.svg",
+          },
+          {
+            id: "3",
+            img: "https://www.app.menutigr.com/static/media/1.c02ba2e1bd3b115050d37b2f9d7b132d.svg",
+          },
         ].map((pattern) => (
           <div
             key={pattern.id}
-            className="flex flex-col items-center gap-1"
+            className="flex flex-col items-center gap-1 "
             onClick={() => setSelectedPattern(pattern.id)}
           >
-            <div className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${selectedPattern === pattern.id ? 'border-2 border-primary' : 'border border-gray-300'
-              }`}>
-              <img src={pattern.img} alt={`Pattern ${pattern.id}`} className="w-full h-full object-contain" />
+            <div
+              className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${
+                selectedPattern === pattern.id
+                  ? "border-2 border-primary"
+                  : "border border-gray-300"
+              }`}
+            >
+              <img
+                src={pattern.img}
+                alt={`Pattern ${pattern.id}`}
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
         ))}
@@ -330,21 +488,44 @@ function Stores() {
 
   const EyeStyleSection = () => (
     <div>
-      <label className="block text-sm font-medium mb-2">Corner Eye Design</label>
+      <label className="block text-sm font-medium mb-2">
+        Corner Eye Design
+      </label>
       <div className="grid grid-cols-3 gap-4">
         {[
-          { id: 'square', label: 'Square', img: 'https://www.app.menutigr.com/static/media/4.3824d19bacf087be79a128b280199228.svg' },
-          { id: 'rounded', label: 'Rounded', img: 'https://www.app.menutigr.com/static/media/2.1183160711ab9f9167dad1854ece2660.svg' },
-          { id: 'circle', label: 'Circle', img: 'https://www.app.menutigr.com/static/media/1.3bdf90cf728437198ce1109f9d560c32.svg' }
+          {
+            id: "square",
+            label: "Square",
+            img: "https://www.app.menutigr.com/static/media/4.3824d19bacf087be79a128b280199228.svg",
+          },
+          {
+            id: "rounded",
+            label: "Rounded",
+            img: "https://www.app.menutigr.com/static/media/2.1183160711ab9f9167dad1854ece2660.svg",
+          },
+          {
+            id: "circle",
+            label: "Circle",
+            img: "https://www.app.menutigr.com/static/media/1.3bdf90cf728437198ce1109f9d560c32.svg",
+          },
         ].map((eye) => (
           <div
             key={eye.id}
             className="flex flex-col items-center"
             onClick={() => setSelectedEyeStyle(eye.id)}
           >
-            <div className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${selectedEyeStyle === eye.id ? 'border-2 border-primary' : 'border border-gray-300'
-              }`}>
-              <img src={eye.img} alt={`${eye.label} eye style`} className="w-10 h-10 object-contain" />
+            <div
+              className={`w-full aspect-square rounded-lg flex items-center justify-center cursor-pointer p-2 ${
+                selectedEyeStyle === eye.id
+                  ? "border-2 border-primary"
+                  : "border border-gray-300"
+              }`}
+            >
+              <img
+                src={eye.img}
+                alt={`${eye.label} eye style`}
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <span className="text-xs mt-1 text-gray-600">{eye.label}</span>
           </div>
@@ -359,11 +540,12 @@ function Stores() {
         <div>
           <label className="block text-sm font-medium mb-2">Foreground</label>
           <div className="flex gap-2">
-            {['#000000', '#3B82F6', '#EF4444'].map((color) => (
+            {["#000000", "#3B82F6", "#EF4444"].map((color) => (
               <div
                 key={color}
-                className={`w-8 h-8 rounded-full cursor-pointer ${selectedColor === color ? 'border-2 border-gray-400' : ''
-                  }`}
+                className={`w-8 h-8 rounded-full cursor-pointer ${
+                  selectedColor === color ? "border-2 border-gray-400" : ""
+                }`}
                 style={{ backgroundColor: color }}
                 onClick={() => setSelectedColor(color)}
               ></div>
@@ -388,15 +570,22 @@ function Stores() {
     <div>
       <label className="block text-sm font-medium mb-2">Frame Style</label>
       <div className="grid grid-cols-2 gap-3">
-        {['None', 'Simple', 'Rounded', 'Ornamental'].map((frame) => (
+        {["None", "Simple", "Rounded", "Ornamental"].map((frame) => (
           <div
             key={frame}
             className="flex flex-col items-center gap-1"
             onClick={() => setSelectedFrame(frame)}
           >
-            <div className={`w-full aspect-square rounded flex items-center justify-center cursor-pointer ${selectedFrame === frame ? 'border-2 border-blue-400' : 'border border-gray-300'
-              }`}>
-              {frame !== 'None' && <div className="w-3/4 h-3/4 border-2 border-gray-400"></div>}
+            <div
+              className={`w-full aspect-square rounded flex items-center justify-center cursor-pointer ${
+                selectedFrame === frame
+                  ? "border-2 border-blue-400"
+                  : "border border-gray-300"
+              }`}
+            >
+              {frame !== "None" && (
+                <div className="w-3/4 h-3/4 border-2 border-gray-400"></div>
+              )}
             </div>
             <span className="text-xs text-gray-600">{frame}</span>
           </div>
@@ -406,16 +595,16 @@ function Stores() {
   );
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold">Integrations</h1>
+            <h1 className="text-2xl font-bold">Stores</h1>
             <FaRocket className="text-primary text-lg sm:text-xl" />
           </div>
           <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mt-1">
-            Manage integrations
+            Manage your branches and stores
           </span>
         </div>
         <div className="flex items-center space-x-4 border border-gray-300 dark:border-gray-600 rounded-md p-2">
@@ -443,21 +632,47 @@ function Stores() {
       <div className="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
         {/* Sidebar */}
         <div className="w-full md:w-40 p-3 flex flex-col md:items-center space-y-6 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700">
-          <div className='flex flex-row justify-between items-center w-full'>
+          <div className="flex flex-row justify-between items-center w-full">
             <div className="flex-1 border border-gray-300 px-4 py-3 rounded-md overflow-hidden">
-              <span className="text-xs md:text-sm text-gray-700 dark:text-gray-300 font-semibold whitespace-nowrap">Stores</span>
+              <span className="text-xs md:text-sm text-gray-700 dark:text-gray-300 font-semibold whitespace-nowrap">
+                Stores
+              </span>
             </div>
-            <div className="ml-2 flex-shrink-0 bg-gray-200 rounded-md p-3">
-              <FaLock className="text-xl text-gray-500" />
+            <div className="ml-2 flex-shrink-0 bg-gray-200 dark:bg-gray-800 rounded-md p-3 dark:border dark:border-gray-600">
+              <FaLock className="text-xl text-gray-500 dark:text-gray-200" />
             </div>
           </div>
-          <div className="w-full">
-            <button className="text-gray-500 dark:text-gray-300 hover:text-primary border border-gray-300 rounded-md px-4 py-3 flex justify-between items-center w-full">
+
+          <div className="w-full relative">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex items-center justify-between cursor-pointer w-full text-gray-500 dark:text-gray-300 hover:text-primary border border-gray-300 rounded-md px-4 py-3"
+            >
               <span className="text-sm">More</span>
               <FaEllipsisV className="text-lg" />
             </button>
+
+            {isOpen && (
+              <div className="absolute left-0 mt-1 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 border border-gray-200 dark:border-gray-500">
+                <button
+                  onClick={handleMenuEdit}
+                  className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                >
+                  <FaEdit className="mr-2" />
+                  Edit
+                </button>
+                <button
+                  onClick={handleMenuDelete}
+                  className="flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                >
+                  <FaTrash className="mr-2" />
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         </div>
+
         {/* Tabs and Content */}
         <div className="flex-1">
           {/* Tabs */}
@@ -467,38 +682,74 @@ function Stores() {
               <button
                 className="px-2 py-3 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary disabled:opacity-30"
                 disabled={visibleStartIndex === 0}
-                onClick={() => setVisibleStartIndex(Math.max(0, visibleStartIndex - 1))}
+                onClick={() =>
+                  setVisibleStartIndex(Math.max(0, visibleStartIndex - 1))
+                }
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </button>
 
-              <div ref={containerRef} className="flex flex-1 overflow-x-hidden w-full">
-                {tabs.slice(visibleStartIndex, visibleStartIndex + visibleTabsCount).map((tab, index) => (
-                  <button
-                    key={tab.id}
-                    ref={el => tabsRef.current[index] = el}
-                    className={`px-4 py-3 font-medium text-sm cursor-pointer flex-shrink-0 flex items-center ${currentPage === tab.id
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+              <div
+                ref={containerRef}
+                className="flex flex-1 overflow-x-hidden w-full"
+              >
+                {tabs
+                  .slice(
+                    visibleStartIndex,
+                    visibleStartIndex + visibleTabsCount
+                  )
+                  .map((tab, index) => (
+                    <button
+                      key={tab.id}
+                      ref={(el) => (tabsRef.current[index] = el)}
+                      className={`px-4 py-3 font-medium text-sm cursor-pointer flex-shrink-0 flex items-center ${
+                        currentPage === tab.id
+                          ? "text-primary border-b-2 border-primary"
+                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                       }`}
-                    onClick={() => setCurrentPage(tab.id)}
-                  >
-                    <span className="mr-2">{tab.icon}</span>
-                    <span>{tab.name}</span>
-                  </button>
-                ))}
+                      onClick={() => setCurrentPage(tab.id)}
+                    >
+                      <span className="mr-2">{tab.icon}</span>
+                      <span>{tab.name}</span>
+                    </button>
+                  ))}
               </div>
 
               {/* Right Arrow */}
               <button
                 className="px-2 py-3 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary disabled:opacity-30"
                 disabled={visibleStartIndex + visibleTabsCount >= tabs.length}
-                onClick={() => setVisibleStartIndex(Math.min(tabs.length - visibleTabsCount, visibleStartIndex + 1))}
+                onClick={() =>
+                  setVisibleStartIndex(
+                    Math.min(
+                      tabs.length - visibleTabsCount,
+                      visibleStartIndex + 1
+                    )
+                  )
+                }
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </button>
             </div>
@@ -506,7 +757,7 @@ function Stores() {
 
           {/* Tab Content */}
           <div className="p-6">
-            {currentPage === 'tables' && (
+            {currentPage === "tables" && (
               <div>
                 {showTableForm ? (
                   <div>
@@ -522,7 +773,11 @@ function Stores() {
                         </button>
 
                         <div className="text-gray-900 dark:text-gray-100 text-md bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md select-none">
-                          <span>Scheduler</span>  <span className="text-gray-400">/</span>  <span className="text-primary">{formData.id ? "Edit scheduler" : "Add scheduler"}</span>
+                          <span>Scheduler</span>{" "}
+                          <span className="text-gray-400">/</span>{" "}
+                          <span className="text-primary">
+                            {formData.id ? "Edit scheduler" : "Add scheduler"}
+                          </span>
                         </div>
                       </div>
                       <button
@@ -566,14 +821,15 @@ function Stores() {
                         </button>
 
                         <div className="text-gray-900 dark:text-gray-100 text-md bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md select-none">
-                          <span>Tables </span> <span className="text-gray-400">/</span>{" "}
-                          <span className="text-primary">Customize QR code</span>
+                          <span>Tables </span>{" "}
+                          <span className="text-gray-400">/</span>{" "}
+                          <span className="text-primary">
+                            Customize QR code
+                          </span>
                         </div>
                         <div className="flex items-center gap-2 px-4 py-2 border border-primary dark:border-primary rounded-sm text-sm text-gray-700 dark:text-gray-300">
                           <FaQuestionCircle className="text-primary" />
-                          <span>
-                            Customize your QR code for store tables
-                          </span>
+                          <span>Customize your QR code for store tables</span>
                         </div>
                       </div>
                       <button
@@ -584,10 +840,10 @@ function Stores() {
                             pattern: selectedPattern,
                             eyeStyle: selectedEyeStyle,
                             color: selectedColor,
-                            frame: selectedFrame
+                            frame: selectedFrame,
                           };
-                          console.log('QR Settings Saved:', qrSettings);
-                          alert('QR settings saved successfully!');
+                          console.log("QR Settings Saved:", qrSettings);
+                          alert("QR settings saved successfully!");
                         }}
                       >
                         Save
@@ -600,12 +856,22 @@ function Stores() {
                             {designTabs.map((tab) => (
                               <div key={tab.id} className="transition-all">
                                 <div
-                                  className={`flex justify-between items-center p-3 cursor-pointer transition-colors ${activeDesignTab === tab.id ? 'border border-gray-200 rounded-sm' : 'border border-gray-200 rounded-sm'}`}
-                                  onClick={() => setActiveDesignTab(activeDesignTab === tab.id ? null : tab.id)}
+                                  className={`flex justify-between items-center p-3 cursor-pointer transition-colors ${
+                                    activeDesignTab === tab.id
+                                      ? "border border-gray-200 rounded-sm"
+                                      : "border border-gray-200 rounded-sm"
+                                  }`}
+                                  onClick={() =>
+                                    setActiveDesignTab(
+                                      activeDesignTab === tab.id ? null : tab.id
+                                    )
+                                  }
                                 >
                                   <div className="flex items-center gap-2">
                                     <span className="text-lg">{tab.icon}</span>
-                                    <span className="font-medium">{tab.label}</span>
+                                    <span className="font-medium">
+                                      {tab.label}
+                                    </span>
                                   </div>
                                   {activeDesignTab === tab.id ? (
                                     <FaChevronUp className="text-gray-500" />
@@ -616,11 +882,17 @@ function Stores() {
 
                                 {activeDesignTab === tab.id && (
                                   <div className="p-4 bg-white animate-fadeIn">
-                                    {tab.id === 'logo' && <LogoUploadSection />}
-                                    {tab.id === 'pattern' && <PatternSelectionSection />}
-                                    {tab.id === 'eyes' && <EyeStyleSection />}
-                                    {tab.id === 'color' && <ColorSelectionSection />}
-                                    {tab.id === 'frame' && <FrameSelectionSection />}
+                                    {tab.id === "logo" && <LogoUploadSection />}
+                                    {tab.id === "pattern" && (
+                                      <PatternSelectionSection />
+                                    )}
+                                    {tab.id === "eyes" && <EyeStyleSection />}
+                                    {tab.id === "color" && (
+                                      <ColorSelectionSection />
+                                    )}
+                                    {tab.id === "frame" && (
+                                      <FrameSelectionSection />
+                                    )}
                                   </div>
                                 )}
                               </div>
@@ -649,7 +921,7 @@ function Stores() {
                           + Add New
                         </button>
                         <button
-                          className="border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-sm flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                          className="border border-gray-300 dark:border-gray-600 cursor-pointer px-4 py-3 rounded-sm flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                           onClick={() => setShowQRCustomization(true)}
                         >
                           <img
@@ -709,7 +981,7 @@ function Stores() {
                 )}
               </div>
             )}
-            {currentPage === 'users' && (
+            {currentPage === "users" && (
               <div>
                 {showUserForm ? (
                   <div>
@@ -723,7 +995,8 @@ function Stores() {
                           <FaChevronLeft />
                         </button>
                         <div className="text-gray-900 dark:text-gray-100 text-md bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md select-none">
-                          <span>Users</span> <span className="text-gray-400">/</span>{" "}
+                          <span>Users</span>{" "}
+                          <span className="text-gray-400">/</span>{" "}
                           <span className="text-primary">Add New User</span>
                         </div>
                       </div>
@@ -813,7 +1086,8 @@ function Stores() {
                       {/* Confirm Password */}
                       <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-sm overflow-hidden">
                         <label className="w-1/4 px-4 py-3 text-sm font-medium bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-r border-gray-300 dark:border-gray-600">
-                          Confirm Password <span className="text-red-500">*</span>
+                          Confirm Password{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <div className="relative flex-1">
                           <input
@@ -828,7 +1102,9 @@ function Stores() {
                           <button
                             type="button"
                             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
                           >
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                           </button>
@@ -853,14 +1129,16 @@ function Stores() {
                               <option value="Admin">Admin</option>
                               <option value="Manager">Manager</option>
                               <option value="Staff">Staff</option>
-                              <option value="OrderManager">Order Manager</option>
+                              <option value="OrderManager">
+                                Order Manager
+                              </option>
                             </select>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                               <FaChevronDown className="text-gray-400" />
                             </div>
                           </div>
                         </div>
-                        {userFormData.accessLevel === 'OrderManager' && (
+                        {userFormData.accessLevel === "OrderManager" && (
                           <p className="text-xs text-gray-500 mt-1 ml-[25%] pl-4">
                             User can view and manage the orders section only
                           </p>
@@ -868,7 +1146,9 @@ function Stores() {
                       </div>
                       <div className="flex items-center gap-2 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-sm text-sm text-gray-700 dark:text-gray-300">
                         <FaQuestionCircle className="text-primary" />
-                        <span>User can view and manage the orders section only</span>
+                        <span>
+                          User can view and manage the orders section only
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -880,12 +1160,12 @@ function Stores() {
                         className="bg-secondary cursor-pointer text-white px-4 py-3 rounded-sm hover:bg-primary transition-colors duration-200"
                         onClick={() => {
                           setUserFormData({
-                            firstName: '',
-                            lastName: '',
-                            email: '',
-                            password: '',
-                            confirmPassword: '',
-                            accessLevel: ''
+                            firstName: "",
+                            lastName: "",
+                            email: "",
+                            password: "",
+                            confirmPassword: "",
+                            accessLevel: "",
                           });
                           setShowUserForm(true);
                         }}
@@ -932,11 +1212,22 @@ function Stores() {
                         <tbody>
                           {users.length > 0 ? (
                             users.map((user) => (
-                              <tr key={user.id} className="border-b border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{user.firstName}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{user.lastName}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{user.email}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{user.accessLevel}</td>
+                              <tr
+                                key={user.id}
+                                className="border-b border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                              >
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                  {user.firstName}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                  {user.lastName}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                  {user.email}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                  {user.accessLevel}
+                                </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                   <div className="flex space-x-2">
                                     <button
@@ -957,14 +1248,19 @@ function Stores() {
                             ))
                           ) : (
                             <tr>
-                              <td colSpan="4" className="px-6 py-12 text-center">
+                              <td
+                                colSpan="4"
+                                className="px-6 py-12 text-center"
+                              >
                                 <div className="flex flex-col items-center justify-center">
                                   <img
                                     src="https://www.app.menutigr.com/static/media/emptyIcon.e5d5b5150b5e6208ac7a2f4dfbdf36a1.svg"
                                     alt="No users"
                                     className="w-16 h-16 mb-4"
                                   />
-                                  <p className="text-gray-500 dark:text-gray-400">No users added yet</p>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    No users added yet
+                                  </p>
                                 </div>
                               </td>
                             </tr>
@@ -976,7 +1272,7 @@ function Stores() {
                 )}
               </div>
             )}
-            {currentPage === 'hours' && (
+            {currentPage === "hours" && (
               <div>
                 {/* Header Section */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
@@ -997,8 +1293,8 @@ function Stores() {
                       // 2. Validate the data
                       // 3. Send to your backend API
                       // 4. Handle success/error
-                      console.log('Saving opening hours...');
-                      alert('Opening hours saved successfully!');
+                      console.log("Saving opening hours...");
+                      alert("Opening hours saved successfully!");
 
                       // Example with actual implementation:
                       // handleSaveOpeningHours();
@@ -1010,8 +1306,19 @@ function Stores() {
 
                 {/* Days of Week */}
                 <div className="space-y-4">
-                  {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
-                    <div key={day} className="border border-gray-200 dark:border-gray-700 rounded-md p-4">
+                  {[
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday",
+                  ].map((day) => (
+                    <div
+                      key={day}
+                      className="border border-gray-200 dark:border-gray-700 rounded-md p-4"
+                    >
                       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         {/* Day and Toggle */}
                         <div className="flex items-center gap-4 w-full md:w-auto">
@@ -1024,7 +1331,10 @@ function Stores() {
                                 defaultChecked
                                 onChange={(e) => {
                                   // Handle toggle change
-                                  console.log(`${day} active:`, e.target.checked);
+                                  console.log(
+                                    `${day} active:`,
+                                    e.target.checked
+                                  );
                                 }}
                               />
                               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-500 peer-checked:bg-primary"></div>
@@ -1071,8 +1381,7 @@ function Stores() {
                 </div>
               </div>
             )}
-            {currentPage === 'social' && (
-
+            {currentPage === "social" && (
               <div>
                 {/* Header Section */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
@@ -1099,38 +1408,45 @@ function Stores() {
                     {
                       name: "Facebook",
                       icon: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
-                      placeholder: "https://facebook.com/yourpage"
+                      placeholder: "https://facebook.com/yourpage",
                     },
                     {
                       name: "Twitter (X)",
                       icon: "https://cdn-icons-png.flaticon.com/512/124/124021.png",
-                      placeholder: "https://twitter.com/yourhandle"
+                      placeholder: "https://twitter.com/yourhandle",
                     },
                     {
                       name: "Instagram",
                       icon: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
-                      placeholder: "https://instagram.com/yourprofile"
+                      placeholder: "https://instagram.com/yourprofile",
                     },
                     {
                       name: "LinkedIn",
                       icon: "https://cdn-icons-png.flaticon.com/512/174/174857.png",
-                      placeholder: "https://linkedin.com/company/yourpage"
+                      placeholder: "https://linkedin.com/company/yourpage",
                     },
                     {
                       name: "YouTube",
                       icon: "https://cdn-icons-png.flaticon.com/512/174/174883.png",
-                      placeholder: "https://youtube.com/yourchannel"
+                      placeholder: "https://youtube.com/yourchannel",
                     },
                     {
                       name: "TikTok",
                       icon: "https://cdn-icons-png.flaticon.com/512/3046/3046126.png",
-                      placeholder: "https://tiktok.com/@yourusername"
-                    }
+                      placeholder: "https://tiktok.com/@yourusername",
+                    },
                   ].map((social) => (
-                    <div key={social.name} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div
+                      key={social.name}
+                      className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
+                    >
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 flex-shrink-0 bg-white dark:bg-gray-800 rounded-full p-2 border border-gray-200 dark:border-gray-600">
-                          <img src={social.icon} alt={social.name} className="w-full h-full object-contain" />
+                          <img
+                            src={social.icon}
+                            alt={social.name}
+                            className="w-full h-full object-contain"
+                          />
                         </div>
                         <h4 className="font-medium text-lg">{social.name}</h4>
                       </div>
@@ -1144,13 +1460,8 @@ function Stores() {
                 </div>
               </div>
             )}
-            {currentPage === 'wifi' && (
-              <div>
 
-
-              </div>
-            )}
-            {currentPage === 'location' && (
+            {currentPage === "location" && (
               <div>
                 {/* Header Section - unchanged */}
                 <div className="flex flex-col sm:flex-col md:flex-row justify-between gap-4 md:gap-6 items-start md:items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
@@ -1161,7 +1472,8 @@ function Stores() {
                     <div className="flex items-start gap-2 px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-700 dark:text-gray-300 w-full md:w-auto">
                       <FaQuestionCircle className="text-primary mt-0.5" />
                       <span className="leading-snug">
-                        Add store location details to identify customer orders which are inside the store radius area
+                        Add store location details to identify customer orders
+                        which are inside the store radius area
                       </span>
                     </div>
                   </div>
@@ -1169,12 +1481,12 @@ function Stores() {
                     className="bg-secondary cursor-pointer text-white px-4 py-3 rounded-md hover:bg-teal-700 transition cursor-pointer w-full md:w-auto border border-primary"
                     onClick={() => {
                       // Add your save logic here
-                      console.log('Saving location data:', {
+                      console.log("Saving location data:", {
                         latitude: 14.599512,
                         longitude: 120.984222,
-                        radius: radiusValue // radiusValue should be from your state
+                        radius: radiusValue, // radiusValue should be from your state
                       });
-                      alert('Location settings saved!');
+                      alert("Location settings saved!");
                     }}
                   >
                     Save
@@ -1184,7 +1496,9 @@ function Stores() {
                 {/* Location Toggle - unchanged */}
                 <div className="flex items-center justify-between px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-md mb-6 max-w-90">
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-500">Enable location details</span>
+                    <span className="text-gray-500">
+                      Enable location details
+                    </span>
                     <FaQuestionCircle className="text-primary text-sm" />
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
@@ -1210,13 +1524,22 @@ function Stores() {
                       <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4 space-y-4">
                         {/* Latitude and Longitude - unchanged */}
                         <div className="space-y-2">
-                          <div className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded-md">
-                            <span className="text-sm text-gray-700 dark:text-gray-300">Latitude</span>
-                            <span className="text-gray-900 dark:text-gray-100">14.599512</span>
+                          <div className="flex justify-between items-center bg-gray-100 dark:bg-gray-800 dark:border dark:border-gray-700 px-3 py-2 rounded-md">
+                            <span className="text-sm text-gray-700 dark:text-gray-300">
+                              Latitude
+                            </span>
+                            <span className="text-gray-900 dark:text-gray-100">
+                              14.599512
+                            </span>
                           </div>
-                          <div className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded-md">
-                            <span className="text-sm text-gray-700 dark:text-gray-300">Longitude</span>
-                            <span className="text-gray-900 dark:text-gray-100">120.984222</span>
+
+                          <div className="flex justify-between items-center bg-gray-100 dark:bg-gray-800 dark:border dark:border-gray-700 px-3 py-2 rounded-md">
+                            <span className="text-sm text-gray-700 dark:text-gray-300">
+                              Longitude
+                            </span>
+                            <span className="text-gray-900 dark:text-gray-100">
+                              120.984222
+                            </span>
                           </div>
                         </div>
 
@@ -1245,7 +1568,9 @@ function Stores() {
                     <div>
                       <div className="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-700 dark:text-gray-300 mb-4">
                         <FaQuestionCircle className="text-primary" />
-                        <span>Use the interactive map to set your location</span>
+                        <span>
+                          Use the interactive map to set your location
+                        </span>
                       </div>
                       <div className="h-64 bg-gray-100 dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600 flex items-center justify-center relative">
                         {/* Simple visualization of radius - would be replaced with actual map in production */}
@@ -1254,17 +1579,19 @@ function Stores() {
                           style={{
                             width: `${Math.min(radiusValue * 2, 300)}px`,
                             height: `${Math.min(radiusValue * 2, 300)}px`,
-                            transition: 'all 0.3s ease'
+                            transition: "all 0.3s ease",
                           }}
                         ></div>
-                        <span className="text-gray-500 dark:text-gray-400 z-10">Map with {radiusValue}m radius</span>
+                        <span className="text-gray-500 dark:text-gray-400 z-10">
+                          Map with {radiusValue}m radius
+                        </span>
                       </div>
                     </div>
                   </div>
                 )}
               </div>
             )}
-            {currentPage === 'settings' && (
+            {currentPage === "settings" && (
               <div>
                 {/* Settings Header Section */}
                 <div className="flex flex-col sm:flex-col md:flex-row justify-between gap-4 md:gap-6 items-start md:items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
@@ -1286,20 +1613,20 @@ function Stores() {
                       const settingsData = {
                         contactlessMenu: {
                           takeawayEnabled: takeawayEnabled,
-                          dineInEnabled: dineInEnabled
+                          dineInEnabled: dineInEnabled,
                         },
                         foodAppearance: {
                           allowSpecialInstructions: allowSpecialInstructions,
-                          displayFullFoodName: displayFullFoodName
+                          displayFullFoodName: displayFullFoodName,
                         },
-                        storeMenu: storeMenu
+                        storeMenu: storeMenu,
                       };
 
                       // Here you would typically make an API call
-                      console.log('Saving settings:', settingsData);
+                      console.log("Saving settings:", settingsData);
 
                       // Show success feedback
-                      alert('Settings saved successfully!');
+                      alert("Settings saved successfully!");
 
                       // You could also add state management here
                       // setSavedSettings(settingsData);
@@ -1317,10 +1644,16 @@ function Stores() {
                       <div className="flex items-center gap-2">
                         <FaQuestionCircle className="text-primary text-sm" />
                         <h4 className="font-medium text-gray-900 dark:text-gray-100">
-                          How to make a contactless view-only menu with no order and pay option?
+                          How to make a contactless view-only menu with no order
+                          and pay option?
                         </h4>
                       </div>
-                      <a href="#" className="text-sm text-primary hover:underline">Read more</a>
+                      <a
+                        href="#"
+                        className="text-sm text-primary hover:underline"
+                      >
+                        Read more
+                      </a>
                     </div>
 
                     <div className="space-y-4">
@@ -1335,7 +1668,9 @@ function Stores() {
                             type="checkbox"
                             className="sr-only peer"
                             checked={takeawayEnabled}
-                            onChange={() => setTakeawayEnabled(!takeawayEnabled)}
+                            onChange={() =>
+                              setTakeawayEnabled(!takeawayEnabled)
+                            }
                           />
                           <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-500 peer-checked:bg-primary"></div>
                         </label>
@@ -1381,7 +1716,11 @@ function Stores() {
                             type="checkbox"
                             className="sr-only peer"
                             checked={allowSpecialInstructions}
-                            onChange={() => setAllowSpecialInstructions(!allowSpecialInstructions)}
+                            onChange={() =>
+                              setAllowSpecialInstructions(
+                                !allowSpecialInstructions
+                              )
+                            }
                           />
                           <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-500 peer-checked:bg-primary"></div>
                         </label>
@@ -1398,7 +1737,9 @@ function Stores() {
                             type="checkbox"
                             className="sr-only peer"
                             checked={displayFullFoodName}
-                            onChange={() => setDisplayFullFoodName(!displayFullFoodName)}
+                            onChange={() =>
+                              setDisplayFullFoodName(!displayFullFoodName)
+                            }
                           />
                           <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-500 peer-checked:bg-primary"></div>
                         </label>

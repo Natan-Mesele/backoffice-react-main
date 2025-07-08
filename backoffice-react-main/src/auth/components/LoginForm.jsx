@@ -1,26 +1,26 @@
 // src/auth/components/LoginForm.jsx
-import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
-import Button from '../common/Button';
-import Input from '../common/Input';
-import PasswordInput from '../common/PasswordInput';
+import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../common/Button";
+import Input from "../common/Input";
+import PasswordInput from "../common/PasswordInput";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login with', email, password, remember);
-    navigate('/dashboard');
+    console.log("Login with", email, password, remember);
+    navigate("/loading");
   };
 
   const handleGoogleLogin = () => {
-    alert('Google Login Popup Triggered');
+    alert("Google Login Popup Triggered");
   };
 
   return (
@@ -31,7 +31,7 @@ const LoginForm = () => {
 
       <div className="w-full max-w-lg bg-white p-10 rounded shadow relative z-10">
         <div className="flex justify-center mb-6">
-        <img
+          <img
             src="https://www.app.menutigr.com/static/media/logo.a0a99daa325519f7c096f10081e46fe8.svg"
             alt="Logo"
             className="h-20"
@@ -93,13 +93,16 @@ const LoginForm = () => {
         </form>
 
         <div className="text-center mb-4">
-          <a href="#" className="text-[#14b8a6] text-md cursor-pointer font-semibold">
+          <a
+            href="#"
+            className="text-[#14b8a6] text-md cursor-pointer font-semibold"
+          >
             Forgot password?
           </a>
         </div>
 
         <p className="text-center text-base text-gray-600 cursor-pointer">
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <Link to="/signup" className="text-[#14b8a6] font-semibold">
             Sign Up
           </Link>

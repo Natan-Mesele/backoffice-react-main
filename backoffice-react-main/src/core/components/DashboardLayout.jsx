@@ -30,6 +30,7 @@ import Promotion from "../pages/Promotion";
 import Surveys from "../pages/Surveys";
 import Customers from "../pages/Customers";
 import { TbLanguage } from "react-icons/tb";
+import HelpChat from "./HelpChat";
 
 const menuItems = [
   {
@@ -134,6 +135,7 @@ const DashboardLayout = () => {
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProductTour, setShowProductTour] = useState(false);
+  const [showHelpChat, setShowHelpChat] = useState(false);
   const toggleLanguageDropdown = () =>
     setShowLanguageDropdown(!showLanguageDropdown);
   const selectLanguage = (lang) => {
@@ -320,7 +322,7 @@ const DashboardLayout = () => {
                   }}
                   className={`relative flex items-center justify-between px-2 py-3 mb-2 text-gray-700 dark:text-gray-300 cursor-pointer whitespace-nowrap group hover:bg-fifth dark:hover:bg-gray-700 overflow-visible hover:rounded-lg transition-all duration-200 ${
                     activePage === name && !hasChildren
-                      ? "bg-fifth dark:bg-green-700 rounded-md"
+                      ? "bg-fifth dark:bg-gray-700 rounded-md"
                       : ""
                   }`}
                   title={name}
@@ -346,7 +348,6 @@ const DashboardLayout = () => {
                       </span>
                     )}
                   </div>
-
                   {showArrow && (
                     <FaChevronDown
                       size={14}
@@ -492,7 +493,7 @@ const DashboardLayout = () => {
         <header className="flex items-center justify-between bg-white dark:bg-gray-800 shadow px-4 sm:px-12 h-20 fixed top-0 left-0 right-0 z-5">
           <div className="flex items-center justify-between space-x-20">
             <img
-              src={downloadLogo}
+              src="https://www.menutiger.com/_next/static/media/logo.80aeb17b.svg"
               alt="Logo"
               className={`h-8 transition-all duration-300 ${
                 sidebarOpen ? "block" : "hidden"
@@ -502,7 +503,7 @@ const DashboardLayout = () => {
             />
             {!sidebarOpen && (
               <img
-                src={downloadLogo}
+                src="https://www.menutiger.com/_next/static/media/logo.80aeb17b.svg"
                 alt="Logo Small"
                 className={`h-10 ${isMobile ? "hidden" : "block"} ${
                   darkMode ? "filter brightness-0 invert" : ""
@@ -536,7 +537,7 @@ const DashboardLayout = () => {
                   className={`relative z-10 w-10 h-10 rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center ${
                     darkMode
                       ? "translate-x-6 bg-secondary text-white"
-                      : "translate-x-0 bg-white text-yellow-500"
+                      : "translate-x-0 bg-secondary text-white"
                   }`}
                 >
                   {darkMode ? (
@@ -556,7 +557,7 @@ const DashboardLayout = () => {
               <div className="relative">
                 <button
                   onClick={toggleLanguageDropdown}
-                  className="flex items-center justify-center cursor-pointer bg-fifth dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors w-10 h-10"
+                  className="flex items-center justify-center cursor-pointer bg-gray-200 dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors w-10 h-10"
                   title="Select language"
                 >
                   <TbLanguage
@@ -657,7 +658,6 @@ const DashboardLayout = () => {
                         }}
                       />
                     </div>
-
                     <div className="relative">
                       <select className="w-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md p-2 pl-8 text-sm focus:outline-none focus:ring-2 focus:ring-secondary">
                         <option value="all">All notifications</option>
@@ -694,7 +694,7 @@ const DashboardLayout = () => {
             <button
               onClick={() => setShowProductTour(true)}
               title="Product Tour"
-              className={`text-gray-700 dark:text-gray-300 bg-fifth dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer ${
+              className={`text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer ${
                 isMobile ? "hidden" : "block"
               }`}
             >
@@ -794,7 +794,6 @@ const DashboardLayout = () => {
                             />
                           </svg>
                         </div>
-
                         <div className="flex items-center justify-between mt-5 space-x-4">
                           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
                             <div
@@ -877,7 +876,7 @@ const DashboardLayout = () => {
             {/* Open Preview */}
             <button
               title="Open Preview"
-              className={`text-gray-700 dark:text-gray-300 bg-fifth dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer ${
+              className={`text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer ${
                 isMobile ? "hidden" : "block"
               }`}
             >
@@ -901,7 +900,7 @@ const DashboardLayout = () => {
             <button
               onClick={toggleFullScreen}
               title="Full Screen"
-              className={`text-gray-700 dark:text-gray-300 bg-fifth dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer ${
+              className={`text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 rounded-md p-2 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer ${
                 isMobile ? "hidden" : "block"
               }`}
             >
@@ -928,7 +927,7 @@ const DashboardLayout = () => {
                   setActiveFilter("All");
                 }}
                 title="What's New"
-                className="relative flex items-center justify-center w-10 h-10 bg-fifth dark:bg-gray-700 rounded-md hover:bg-secondary dark:hover:bg-gray-600 transition-colors duration-200 cursor-pointer"
+                className="relative flex items-center justify-center w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-md hover:bg-secondary dark:hover:bg-gray-600 transition-colors duration-200 cursor-pointer"
               >
                 <img
                   src="https://www.app.menutigr.com/static/media/manage-stores.76de79aba6c6a99f6a6d435935e97643.svg"
@@ -1086,7 +1085,7 @@ const DashboardLayout = () => {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="group flex items-center space-x-2 rounded-full bg-fifth dark:bg-gray-700 px-3 py-1 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer"
+                className="group flex items-center space-x-2 rounded-full bg-gray-200 dark:bg-gray-700 px-3 py-1 hover:bg-secondary hover:text-white transition-colors duration-200 cursor-pointer"
                 aria-haspopup="true"
                 aria-expanded={userMenuOpen}
               >
@@ -1101,7 +1100,7 @@ const DashboardLayout = () => {
                 />
               </button>
               {userMenuOpen && (
-                <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-20 border border-gray-200 dark:border-gray-600">
+                <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-20 border border-gray-200 dark:border-gray-600">
                   {/* Header */}
                   <div className="px-4 pt-3 pb-2">
                     <p className="text-lg sm:text-md font-medium text-gray-800 dark:text-gray-200">
@@ -1229,6 +1228,11 @@ const DashboardLayout = () => {
           </div>
         )}
       </div>
+      <HelpChat
+        darkMode={darkMode}
+        showHelpChat={showHelpChat}
+        setShowHelpChat={setShowHelpChat}
+      />
     </div>
   );
 };

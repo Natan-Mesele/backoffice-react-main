@@ -5,43 +5,50 @@ function Faq() {
   const categories = [
     {
       title: "Getting Started & Account Management",
-      description: "Learn how to set up your account and manage your profile and subscription settings.",
+      description:
+        "Learn how to set up your account and manage your profile and subscription settings.",
       articles: 13,
     },
     {
       title: "The Customer Experience (Customer App)",
-      description: "Understand how your customers interact with your Menu Tiger website.",
+      description:
+        "Understand how your customers interact with your Menu Tiger website.",
       articles: 7,
     },
     {
       title: "Menu Management & Admin Panel",
-      description: "Find instructions on how to organize your menus and manage the backend.",
+      description:
+        "Find instructions on how to organize your menus and manage the backend.",
       articles: 13,
     },
     {
       title: "Store & Operations Management",
-      description: "Manage your store settings, add multiple locations, and table QR codes.",
+      description:
+        "Manage your store settings, add multiple locations, and table QR codes.",
       articles: 16,
     },
     {
       title: "Marketing & Customer Engagement",
-      description: "Learn how to customize the website, promotions, and customer feedback.",
+      description:
+        "Learn how to customize the website, promotions, and customer feedback.",
       articles: 4,
     },
     {
       title: "Advanced Settings, Reports & Integrations",
-      description: "Advanced configurations, data reports, and connecting with third-party apps.",
+      description:
+        "Advanced configurations, data reports, and connecting with third-party apps.",
       articles: 14,
     },
     {
       title: "FAQs & Troubleshooting",
-      description: "Find answers to common questions and solutions for frequent technical issues.",
+      description:
+        "Find answers to common questions and solutions for frequent technical issues.",
       articles: 8,
     },
   ];
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
         {/* Logo */}
         {/* Header Bar with Logo and Menu */}

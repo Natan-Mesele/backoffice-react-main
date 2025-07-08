@@ -22,7 +22,7 @@ import {
   FaSearch,
   FaHistory,
   FaTrash,
-  FaEllipsisV
+  FaEllipsisV,
 } from "react-icons/fa";
 
 const Menu = () => {
@@ -47,26 +47,38 @@ const Menu = () => {
   const [modifiers, setModifiers] = useState([]);
   const [editingModifierId, setEditingModifierId] = useState(null);
   const [openModifierId, setOpenModifierId] = useState(null);
-  const [currentSection, setCurrentSection] = useState('modifiers');
+  const [currentSection, setCurrentSection] = useState("modifiers");
   const [modifierOptions, setModifierOptions] = useState([]);
 
   const tabs = [
     { name: "Menus", icon: <FaListUl className="mr-2" /> },
     { name: "Modifiers", icon: <FaTags className="mr-2" /> },
-    { name: "Archive", icon: <FaArchive className="mr-2" /> }
+    { name: "Archive", icon: <FaArchive className="mr-2" /> },
   ];
 
   const sampleMenuItems = [
-    { name: "Margherita Pizza", description: "Classic pizza with tomato and mozzarella", price: "$12.99" },
-    { name: "Caesar Salad", description: "Fresh romaine with Caesar dressing", price: "$8.99" },
-    { name: "Garlic Bread", description: "Toasted bread with garlic butter", price: "$4.99" }
+    {
+      name: "Margherita Pizza",
+      description: "Classic pizza with tomato and mozzarella",
+      price: "$12.99",
+    },
+    {
+      name: "Caesar Salad",
+      description: "Fresh romaine with Caesar dressing",
+      price: "$8.99",
+    },
+    {
+      name: "Garlic Bread",
+      description: "Toasted bread with garlic butter",
+      price: "$4.99",
+    },
   ];
 
   const steps = [
     { id: 1, name: "Download Template", icon: <FaDownload /> },
     { id: 2, name: "Upload File", icon: <FaUpload /> },
     { id: 3, name: "Review Data", icon: <FaCheck /> },
-    { id: 4, name: "Finish", icon: <FaCheck /> }
+    { id: 4, name: "Finish", icon: <FaCheck /> },
   ];
 
   const [archivedMenus, setArchivedMenus] = useState([
@@ -74,20 +86,20 @@ const Menu = () => {
       id: 1,
       name: "Sample Item",
       description: "Temporarily removed from menu",
-      date: "2025-06-21"
+      date: "2025-06-21",
     },
     {
       id: 2,
       name: "Old Breakfast",
       description: "No longer served",
-      date: "2025-06-20"
+      date: "2025-06-20",
     },
     {
       id: 3,
       name: "Summer Menu",
       description: "Archived for season",
-      date: "2025-06-19"
-    }
+      date: "2025-06-19",
+    },
   ]);
 
   const handleAddNewClick = () => {
@@ -149,7 +161,9 @@ const Menu = () => {
       setFileName(file.name);
 
       if (!file.name.match(/\.(xlsx|xls|csv)$/i)) {
-        setValidationErrors(["File must be an Excel spreadsheet (.xlsx, .xls) or CSV"]);
+        setValidationErrors([
+          "File must be an Excel spreadsheet (.xlsx, .xls) or CSV",
+        ]);
       } else {
         setValidationErrors([]);
       }
@@ -174,7 +188,7 @@ const Menu = () => {
   };
 
   const handleEdit = (id) => {
-    const menuToEdit = menus.find(menu => menu.id === id);
+    const menuToEdit = menus.find((menu) => menu.id === id);
     if (menuToEdit) {
       setMenuName(menuToEdit.name);
       setMenuDescription(menuToEdit.description);
@@ -182,25 +196,25 @@ const Menu = () => {
       setShowAddOptions(true);
       setShowMainContent(false);
       setOpenMenuId(null);
-      setEditingMenuId(id); // This is crucial for proper editing
+      setEditingMenuId(id);
     }
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this menu?")) {
-      setMenus(menus.filter(menu => menu.id !== id));
-      setOpenMenuId(null); // Close the dropdown
+      setMenus(menus.filter((menu) => menu.id !== id));
+      setOpenMenuId(null);
     }
   };
 
   const handleDuplicate = (id) => {
-    const menuToDuplicate = menus.find(menu => menu.id === id);
+    const menuToDuplicate = menus.find((menu) => menu.id === id);
     if (menuToDuplicate) {
       const newMenu = {
         id: Date.now(),
-        name: menuToDuplicate.name, // Removed the "(Copy)" suffix
+        name: menuToDuplicate.name,
         description: menuToDuplicate.description,
-        items: [...menuToDuplicate.items]
+        items: [...menuToDuplicate.items],
       };
       setMenus([...menus, newMenu]);
       setOpenMenuId(null);
@@ -208,37 +222,36 @@ const Menu = () => {
   };
 
   const handleSaveMenu = () => {
-    if (!menuName) return; // Don't save if name is empty
+    if (!menuName) return;
 
     if (editingMenuId) {
-      // Update existing menu
-      setMenus(menus.map(menu =>
-        menu.id === editingMenuId
-          ? { ...menu, name: menuName, description: menuDescription }
-          : menu
-      ));
+      setMenus(
+        menus.map((menu) =>
+          menu.id === editingMenuId
+            ? { ...menu, name: menuName, description: menuDescription }
+            : menu
+        )
+      );
     } else {
-      // Create new menu
       const newMenu = {
         id: Date.now(),
         name: menuName,
         description: menuDescription,
-        items: []
+        items: [],
       };
       setMenus([...menus, newMenu]);
     }
 
-    // Reset form and close
-    setMenuName('');
-    setMenuDescription('');
+    setMenuName("");
+    setMenuDescription("");
     setIsStartingFromScratch(false);
     setShowAddOptions(false);
     setShowMainContent(true);
-    setEditingMenuId(null); // Clear editing state
+    setEditingMenuId(null);
   };
 
   const handleEditModifier = (id) => {
-    const modifierToEdit = modifiers.find(modifier => modifier.id === id);
+    const modifierToEdit = modifiers.find((modifier) => modifier.id === id);
     if (modifierToEdit) {
       setModifierName(modifierToEdit.name);
       setModifierDescription(modifierToEdit.description);
@@ -250,7 +263,7 @@ const Menu = () => {
 
   const handleDeleteModifier = (id) => {
     if (window.confirm("Are you sure you want to delete this modifier?")) {
-      setModifiers(modifiers.filter(modifier => modifier.id !== id));
+      setModifiers(modifiers.filter((modifier) => modifier.id !== id));
       setOpenModifierId(null);
     }
   };
@@ -259,18 +272,22 @@ const Menu = () => {
     if (!modifierName) return;
 
     if (editingModifierId) {
-      // Update existing modifier
-      setModifiers(modifiers.map(modifier =>
-        modifier.id === editingModifierId
-          ? { ...modifier, name: modifierName, description: modifierDescription }
-          : modifier
-      ));
+      setModifiers(
+        modifiers.map((modifier) =>
+          modifier.id === editingModifierId
+            ? {
+                ...modifier,
+                name: modifierName,
+                description: modifierDescription,
+              }
+            : modifier
+        )
+      );
     } else {
-      // Create new modifier
       const newModifier = {
         id: Date.now(),
         name: modifierName,
-        description: modifierDescription
+        description: modifierDescription,
       };
       setModifiers([...modifiers, newModifier]);
     }
@@ -303,16 +320,16 @@ const Menu = () => {
     const item = archivedMenus.find((m) => m.id === id);
     console.log("Restoring:", item);
     setArchivedMenus(archivedMenus.filter((m) => m.id !== id));
-    // You can also call an API here to restore the item
   };
 
   const handleArchiveDelete = (id) => {
-    const confirmed = window.confirm("Are you sure you want to permanently delete this item?");
+    const confirmed = window.confirm(
+      "Are you sure you want to permanently delete this item?"
+    );
     if (confirmed) {
       const item = archivedMenus.find((m) => m.id === id);
       console.log("Deleting from archive:", item);
       setArchivedMenus(archivedMenus.filter((m) => m.id !== id));
-      // You can also call an API here to delete the item
     }
   };
 
@@ -321,19 +338,32 @@ const Menu = () => {
       <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-300 dark:bg-gray-500 -z-10"></div>
       {steps.map((step) => (
         <div key={step.id} className="flex flex-row items-center gap-2">
-          <div className={`w-6 h-6 rounded-full flex items-center justify-center ${currentStep >= step.id
-            ? "bg-primary text-white"
-            : "bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300"
-            }`}>
+          <div
+            className={`w-6 h-6 rounded-full flex items-center justify-center ${
+              currentStep >= step.id
+                ? "bg-primary text-white"
+                : "bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300"
+            }`}
+          >
             {currentStep > step.id ? <FaCheck /> : step.id}
           </div>
           <div className="flex items-center">
-            <span className={`text-sm text-gray-500 dark:text-gray-400 ${currentStep >= step.id ? "font-medium" : ""
-              }`}>
-              {step.name.replace('Template', '').replace('File', '').replace('Data', '')}
+            <span
+              className={`text-sm ${
+                currentStep >= step.id
+                  ? "text-gray-500 dark:text-gray-400 font-medium"
+                  : "text-gray-500 dark:text-gray-400"
+              }`}
+            >
+              {step.name
+                .replace("Template", "")
+                .replace("File", "")
+                .replace("Data", "")}
             </span>
             {step.id < steps.length && (
-              <span className="mx-2 text-gray-400 dark:text-gray-500">------------------</span>
+              <span className="mx-2 text-gray-400 dark:text-gray-500">
+                ------------------
+              </span>
             )}
           </div>
         </div>
@@ -352,7 +382,8 @@ const Menu = () => {
               className="w-full max-w-[160px] mb-4"
             />
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-              Please download the sample sheet below and fill it with your items.
+              Please download the sample sheet below and fill it with your
+              items.
               <br />
               <span className="text-xs text-gray-500 dark:text-gray-400">
                 You may skip if you already have the sample sheet.
@@ -378,15 +409,23 @@ const Menu = () => {
               {validationErrors.length > 0 && (
                 <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-200 dark:border-red-800">
                   {validationErrors.map((error, index) => (
-                    <div key={index} className="flex items-center text-red-600 dark:text-red-300">
+                    <div
+                      key={index}
+                      className="flex items-center text-red-600 dark:text-red-300"
+                    >
                       <FaTimes className="mr-2" />
                       {error}
                     </div>
                   ))}
                 </div>
               )}
-              <div className={`border-2 border-dashed ${selectedFile ? "border-green-200 dark:border-green-800" : "border-gray-300 dark:border-gray-600"
-                } rounded-lg p-8 text-center transition-colors duration-200`}>
+              <div
+                className={`border-2 border-dashed ${
+                  selectedFile
+                    ? "border-green-200 dark:border-green-800"
+                    : "border-gray-300 dark:border-gray-600"
+                } rounded-lg p-8 text-center transition-colors duration-200`}
+              >
                 {selectedFile ? (
                   <div className="flex flex-col items-center">
                     <FaFileExcel className="text-3xl text-green-600 mb-3" />
@@ -406,7 +445,10 @@ const Menu = () => {
                     <FaUpload className="mx-auto text-3xl text-gray-400 mb-3" />
                     <p className="mb-4">Drag and drop your Excel file here</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                      The file must include: <span className="font-semibold">Name</span>, <span className="font-semibold">Description</span>, and <span className="font-semibold">Price</span> columns
+                      The file must include:{" "}
+                      <span className="font-semibold">Name</span>,{" "}
+                      <span className="font-semibold">Description</span>, and{" "}
+                      <span className="font-semibold">Price</span> columns
                     </p>
                     <label className="cursor-pointer bg-primary text-white px-4 py-2 rounded-md inline-flex items-center hover:bg-teal-700 transition-colors duration-200">
                       <FaUpload className="mr-2" />
@@ -435,7 +477,8 @@ const Menu = () => {
               <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
                 <div className="flex items-center text-green-700 dark:text-green-300">
                   <FaCheck className="mr-2" />
-                  File successfully validated - {sampleMenuItems.length} items found
+                  File successfully validated - {sampleMenuItems.length} items
+                  found
                 </div>
               </div>
               <div className="overflow-x-auto">
@@ -449,7 +492,10 @@ const Menu = () => {
                   </thead>
                   <tbody>
                     {sampleMenuItems.map((item, index) => (
-                      <tr key={index} className="border-b border-gray-200 dark:border-gray-700">
+                      <tr
+                        key={index}
+                        className="border-b border-gray-200 dark:border-gray-700"
+                      >
                         <td className="px-4 py-2">{item.name}</td>
                         <td className="px-4 py-2">{item.description}</td>
                         <td className="px-4 py-2">{item.price}</td>
@@ -477,7 +523,9 @@ const Menu = () => {
               {isImporting ? "Importing..." : "Import Complete!"}
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-              {isImporting ? "Please wait while we import your menu items" : "Your menu items have been successfully imported."}
+              {isImporting
+                ? "Please wait while we import your menu items"
+                : "Your menu items have been successfully imported."}
             </p>
           </div>
         );
@@ -488,9 +536,7 @@ const Menu = () => {
 
   const renderScratchForm = () => (
     <div className="bg-white dark:bg-gray-700">
-      {/* Header Row */}
       <div className="flex justify-between items-center pb-4 mb-6 border-b border-gray-300 dark:border-gray-600">
-        {/* Path Navigation and Back Arrow */}
         <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm rounded">
           <div
             onClick={() => {
@@ -501,27 +547,27 @@ const Menu = () => {
           >
             <FaChevronLeft className="text-sm" />
           </div>
-          <div className="flex items-center bg-gray-200 text-gray-700 px-2 py-3 rounded-md">
+          <div className="flex items-center bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-100 px-2 py-3 rounded-md">
             <span>Menus</span>
             <span className="mx-1">/</span>
             <span className="text-primary">Add new menu</span>
           </div>
         </div>
 
-        {/* Save Button */}
         <button
           onClick={handleSaveMenu}
           disabled={!menuName}
-          className={`px-4 py-3 text-sm rounded-md cursor-pointer text-white ${!menuName ? 'bg-secondary cursor-not-allowed' : 'bg-secondary hover:bg-primary'
-            }`}
+          className={`px-4 py-3 text-sm rounded-md cursor-pointer text-white ${
+            !menuName
+              ? "bg-secondary cursor-not-allowed"
+              : "bg-secondary hover:bg-primary"
+          }`}
         >
           Save
         </button>
       </div>
 
-      {/* Form Fields */}
       <div className="space-y-6 max-w-sm">
-        {/* Name Field with vertical border between label and input */}
         <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 focus-within:border-primary transition-colors">
           <label className="w-28 text-sm font-medium text-gray-600 dark:text-gray-300 px-3 py-2">
             Name <span className="text-red-500">*</span>
@@ -536,7 +582,6 @@ const Menu = () => {
           </div>
         </div>
 
-        {/* Description Field with vertical border between label and textarea */}
         <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 focus-within:border-primary transition-colors">
           <label className="w-28 pt-2 text-sm font-medium text-gray-600 dark:text-gray-300 px-3 py-2">
             Description
@@ -555,7 +600,7 @@ const Menu = () => {
   );
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       {/* Top Header Section */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow rounded-lg">
         <div className="flex flex-col">
@@ -595,10 +640,11 @@ const Menu = () => {
           {tabs.map((tab) => (
             <button
               key={tab.name}
-              className={`pb-2 px-4 font-semibold flex items-center  cursor-pointer ${activeTab === tab.name
-                ? "border-b-2 border-primary text-primary"
-                : "text-gray-700 dark:text-gray-300"
-                }`}
+              className={`pb-2 px-4 font-semibold flex items-center cursor-pointer ${
+                activeTab === tab.name
+                  ? "border-b-2 border-primary text-primary"
+                  : "text-gray-700 dark:text-gray-300"
+              }`}
               onClick={() => {
                 setActiveTab(tab.name);
                 setShowAddOptions(false);
@@ -614,11 +660,9 @@ const Menu = () => {
         <div className="p-6">
           {activeTab === "Menus" && (
             <>
-              {/* Main content view */}
               {showMainContent && (
                 <div>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-                    {/* Updated Add New button with reduced width */}
                     <button
                       onClick={handleAddNewClick}
                       className="flex items-center bg-secondary text-white px-4 py-3 rounded-md text-sm hover:bg-primary cursor-pointer transition-colors duration-200"
@@ -627,26 +671,29 @@ const Menu = () => {
                       Add New
                     </button>
 
-                    {/* Store settings helper text - now parallel on larger screens */}
                     <div className="flex items-center border border-dashed border-gray-400 px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 text-sm">
                       <FaQuestionCircle className="mr-2 text-primary text-sm" />
-                      Go to <span className="mx-1 font-semibold underline cursor-pointer">Store settings</span> to connect your favorite menu
+                      Go to{" "}
+                      <span className="mx-1 font-semibold underline cursor-pointer">
+                        Store settings
+                      </span>{" "}
+                      to connect your favorite menu
                     </div>
                   </div>
 
-                  {/* Menu list display */}
                   {menus.length > 0 ? (
                     <div className="space-y-4">
                       {menus.map((menu) => (
                         <div
                           key={menu.id}
-                          className="relative border border-gray-200 dark:border-gray-600 rounded-md p-4 w-64 h-52 flex flex-col justify-between bg-[#EEF2F6]"
+                          className="relative border border-gray-200 dark:border-gray-600 rounded-md p-4 w-64 h-52 flex flex-col justify-between bg-[#EEF2F6] dark:bg-gray-700"
                         >
-                          {/* Top right three-dot menu */}
                           <div className="absolute top-4 right-4">
                             <button
                               onClick={() =>
-                                setOpenMenuId(openMenuId === menu.id ? null : menu.id)
+                                setOpenMenuId(
+                                  openMenuId === menu.id ? null : menu.id
+                                )
                               }
                               className="text-gray-600 hover:text-black dark:text-gray-300"
                             >
@@ -681,8 +728,19 @@ const Menu = () => {
                                   onClick={() => handleDuplicate(menu.id)}
                                   className="flex items-center w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
                                 >
-                                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 16H6C4.89543 16 4 15.1046 4 14V6C4 4.89543 4.89543 4 6 4H14C15.1046 4 16 4.89543 16 6V8M10 20H18C19.1046 20 20 19.1046 20 18V10C20 8.89543 19.1046 8 18 8H10C8.89543 8 8 8.89543 8 10V18C8 19.1046 8.89543 20 10 20Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                  <svg
+                                    className="w-4 h-4 mr-2"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M8 16H6C4.89543 16 4 15.1046 4 14V6C4 4.89543 4.89543 4 6 4H14C15.1046 4 16 4.89543 16 6V8M10 20H18C19.1046 20 20 19.1046 20 18V10C20 8.89543 19.1046 8 18 8H10C8.89543 8 8 8.89543 8 10V18C8 19.1046 8.89543 20 10 20Z"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
                                   </svg>
                                   Duplicate
                                 </button>
@@ -690,9 +748,10 @@ const Menu = () => {
                             )}
                           </div>
 
-                          {/* Menu Content */}
                           <div>
-                            <h3 className="font-medium text-lg">{menu.name}</h3>
+                            <h3 className="font-medium text-lg dark:text-white">
+                              {menu.name}
+                            </h3>
                             <p className="text-gray-600 dark:text-gray-400 text-sm">
                               {menu.description}
                             </p>
@@ -701,7 +760,7 @@ const Menu = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="bg-[#F8FAFC] border border-gray-200 rounded-md p-4 sm:p-6 h-52 flex items-center justify-center w-64">
+                    <div className="bg-[#F8FAFC] dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md p-4 sm:p-6 h-52 flex items-center justify-center w-64">
                       <button
                         className="bg-secondary text-white p-6 cursor-pointer rounded-md flex items-center justify-center hover:bg-primary transition-colors duration-200"
                         onClick={handleAddNewClick}
@@ -713,8 +772,6 @@ const Menu = () => {
                 </div>
               )}
 
-
-              {/* Add options view */}
               {showAddOptions && (
                 <div>
                   {currentStep === 1 && isChoosingSetupMethod && (
@@ -738,7 +795,9 @@ const Menu = () => {
                         <div className="flex justify-left mb-4">
                           <FaBookOpen className="text-xl mt-1 flex-shrink-0" />
                         </div>
-                        <h3 className="text-lg font-semibold mb-2">Import Menu</h3>
+                        <h3 className="text-lg font-semibold mb-2">
+                          Import Menu
+                        </h3>
                         <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
                           Download the sample sheet and fill it with your items.
                         </p>
@@ -758,9 +817,12 @@ const Menu = () => {
                         <div className="flex justify-left mb-4">
                           <FaBookOpen className="text-xl mt-1 flex-shrink-0" />
                         </div>
-                        <h3 className="text-lg font-semibold mb-2">Start from Scratch</h3>
+                        <h3 className="text-lg font-semibold mb-2">
+                          Start from Scratch
+                        </h3>
                         <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                          Start with an empty menu and build your items manually.
+                          Start with an empty menu and build your items
+                          manually.
                         </p>
                         <button
                           className="flex items-center justify-between cursor-pointer w-full bg-secondary text-white px-4 py-3 rounded-sm text-sm hover:bg-teal-700 transition-colors duration-200"
@@ -786,18 +848,21 @@ const Menu = () => {
                           >
                             <FaChevronLeft className="text-gray-100 dark:text-gray-300" />
                           </button>
-                          <span className="ml-3 text-base bg-gray-50 rounded-sm py-3 px-2 text-gray-500 dark:text-gray-200">
+                          <span className="ml-3 text-base bg-gray-50 dark:bg-gray-700 rounded-sm py-3 px-2 text-gray-500 dark:text-gray-200">
                             Import menu from template
                           </span>
                         </div>
 
                         <button
                           onClick={handleNextClick}
-                          disabled={(currentStep === 2 && !selectedFile) || isImporting}
-                          className={`flex items-center px-4 py-3 rounded-md transition-colors duration-200 ${(currentStep === 2 && !selectedFile) || isImporting
-                            ? "bg-secondary dark:bg-gray-500 text-gray-100 dark:text-gray-300 cursor-not-allowed"
-                            : "bg-secondary text-white hover:bg-teal-700"
-                            }`}
+                          disabled={
+                            (currentStep === 2 && !selectedFile) || isImporting
+                          }
+                          className={`flex items-center px-4 py-3 rounded-md transition-colors duration-200 ${
+                            (currentStep === 2 && !selectedFile) || isImporting
+                              ? "bg-secondary dark:bg-gray-500 text-gray-100 dark:text-gray-300 cursor-not-allowed"
+                              : "bg-secondary text-white hover:bg-teal-700"
+                          }`}
                         >
                           {currentStep === 3 ? "Finish Import" : "Next"}
                         </button>
@@ -810,11 +875,14 @@ const Menu = () => {
                 </div>
               )}
 
-              {/* Pagination Section */}
               {showMainContent && (
                 <div className="flex justify-end items-center mt-6">
-                  <span className="text-sm text-gray-600 dark:text-gray-400 mr-4">Rows per page: 10</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400 mr-4">1–1 of 1</span>
+                  <span className="mr-4 text-gray-600 dark:text-gray-400">
+                    Rows per page: 10
+                  </span>
+                  <span className="mr-4 text-gray-600 dark:text-gray-400">
+                    1–1 of 1
+                  </span>
                   <button className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors duration-200">
                     <FaChevronLeft />
                   </button>
@@ -832,7 +900,7 @@ const Menu = () => {
               {!showModifierForm && (
                 <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <button
-                   className="flex items-center bg-secondary text-white px-4 py-3 rounded-md text-sm hover:bg-primary cursor-pointer transition-colors duration-200"
+                    className="flex items-center bg-secondary text-white px-4 py-3 rounded-md text-sm hover:bg-primary cursor-pointer transition-colors duration-200"
                     onClick={() => setShowModifierForm(true)}
                   >
                     <FaPlus className="mr-2" />
@@ -861,7 +929,7 @@ const Menu = () => {
                       >
                         <FaChevronLeft className="text-sm" />
                       </button>
-                      <div className="flex items-center bg-gray-200 text-gray-700 px-2 py-3 rounded-md">
+                      <div className="flex items-center bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-2 py-3 rounded-md">
                         <span>Modifiers</span>
                         <span className="mx-1">/</span>
                         <span className="text-primary">Add new modifier</span>
@@ -878,14 +946,22 @@ const Menu = () => {
                   {/* Tab Navigation */}
                   <div className="flex gap-8 border-b border-gray-200 dark:border-gray-600 mb-6">
                     <button
-                      className={`py-2 font-medium ${currentSection === 'modifiers' ? 'border-b-2 border-primary text-primary' : 'text-gray-500 dark:text-gray-400'}`}
-                      onClick={() => setCurrentSection('modifiers')}
+                      className={`py-2 font-medium ${
+                        currentSection === "modifiers"
+                          ? "border-b-2 border-primary text-primary"
+                          : "text-gray-500 dark:text-gray-400"
+                      }`}
+                      onClick={() => setCurrentSection("modifiers")}
                     >
                       Modifiers
                     </button>
                     <button
-                      className={`py-2 font-medium ${currentSection === 'localize' ? 'border-b-2 border-primary text-primary' : 'text-gray-500 dark:text-gray-400'}`}
-                      onClick={() => setCurrentSection('localize')}
+                      className={`py-2 font-medium ${
+                        currentSection === "localize"
+                          ? "border-b-2 border-primary text-primary"
+                          : "text-gray-500 dark:text-gray-400"
+                      }`}
+                      onClick={() => setCurrentSection("localize")}
                     >
                       Localize
                     </button>
@@ -911,14 +987,27 @@ const Menu = () => {
 
                       {/* Type: Optional / Required */}
                       <div className="space-y-1">
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Type</p>
-                        <div className="flex flex-col items-start border border-gray-300 rounded-sm dark:border-gray-600 py-6 px-4 gap-4 text-sm text-gray-700 dark:text-gray-300">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Type
+                        </p>
+                        <div className="flex flex-col items-start border border-gray-300 dark:border-gray-600 rounded-sm py-6 px-4 gap-4 text-sm text-gray-700 dark:text-gray-300">
                           <label className="flex items-center gap-2">
-                            <input type="radio" name="modifierType" value="optional" className="accent-primary" defaultChecked />
+                            <input
+                              type="radio"
+                              name="modifierType"
+                              value="optional"
+                              className="accent-primary"
+                              defaultChecked
+                            />
                             Optional
                           </label>
                           <label className="flex items-center gap-2">
-                            <input type="radio" name="modifierType" value="required" className="accent-primary" />
+                            <input
+                              type="radio"
+                              name="modifierType"
+                              value="required"
+                              className="accent-primary"
+                            />
                             Required
                           </label>
                         </div>
@@ -926,8 +1015,12 @@ const Menu = () => {
 
                       {/* Allow duplicate checkbox */}
                       <div className="flex justify-between items-center border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 px-3 py-2 text-gray-700 dark:text-gray-300">
-                        <label className="flex items-center gap-2 text-base text-gray-300 dark:text-gray-300">
-                          <input type="checkbox" id="allow-duplicates" className="accent-primary w-5 h-5" />
+                        <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                          <input
+                            type="checkbox"
+                            id="allow-duplicates"
+                            className="accent-primary w-5 h-5"
+                          />
                           Allow adding same choice multiple times
                         </label>
                         <FaQuestionCircle className="text-primary text-xl" />
@@ -943,24 +1036,45 @@ const Menu = () => {
                         </div>
 
                         {modifierOptions.map((option, index) => (
-                          <div key={index} className="grid grid-cols-4 gap-4 items-center">
+                          <div
+                            key={index}
+                            className="grid grid-cols-4 gap-4 items-center"
+                          >
                             <input
                               type="text"
                               className="px-2 py-2 rounded-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-100 focus:outline-none"
                               value={option.name}
-                              onChange={(e) => updateModifierOption(index, "name", e.target.value)}
+                              onChange={(e) =>
+                                updateModifierOption(
+                                  index,
+                                  "name",
+                                  e.target.value
+                                )
+                              }
                             />
                             <input
                               type="number"
                               className="px-2 py-2 rounded-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-100 focus:outline-none"
                               value={option.price}
-                              onChange={(e) => updateModifierOption(index, "price", e.target.value)}
+                              onChange={(e) =>
+                                updateModifierOption(
+                                  index,
+                                  "price",
+                                  e.target.value
+                                )
+                              }
                             />
                             <input
                               type="text"
                               className="px-2 py-2 rounded-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-100 focus:outline-none"
                               value={option.unit}
-                              onChange={(e) => updateModifierOption(index, "unit", e.target.value)}
+                              onChange={(e) =>
+                                updateModifierOption(
+                                  index,
+                                  "unit",
+                                  e.target.value
+                                )
+                              }
                             />
                             {modifierOptions.length > 1 && (
                               <button
@@ -985,7 +1099,7 @@ const Menu = () => {
                   )}
 
                   {/* Localize Section */}
-                  {currentSection === 'localize' && (
+                  {currentSection === "localize" && (
                     <div className="space-y-6 max-w-sm">
                       <div className="p-4 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-800">
                         <div className="flex items-center justify-between mb-2">
@@ -995,32 +1109,39 @@ const Menu = () => {
                           <FaQuestionCircle className="text-gray-400 dark:text-gray-500" />
                         </div>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          Add translations for your modifier in different languages
+                          Add translations for your modifier in different
+                          languages
                         </p>
                       </div>
 
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-300">English</span>
+                          <span className="text-sm text-gray-600 dark:text-gray-300">
+                            English
+                          </span>
                           <input
                             type="text"
-                            className="flex-1 ml-4 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-800"
+                            className="flex-1 ml-4 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                             placeholder="Enter English translation"
                           />
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-300">Spanish</span>
+                          <span className="text-sm text-gray-600 dark:text-gray-300">
+                            Spanish
+                          </span>
                           <input
                             type="text"
-                            className="flex-1 ml-4 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-800"
+                            className="flex-1 ml-4 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                             placeholder="Enter Spanish translation"
                           />
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-300">French</span>
+                          <span className="text-sm text-gray-600 dark:text-gray-300">
+                            French
+                          </span>
                           <input
                             type="text"
-                            className="flex-1 ml-4 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-800"
+                            className="flex-1 ml-4 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                             placeholder="Enter French translation"
                           />
                         </div>
@@ -1036,19 +1157,30 @@ const Menu = () => {
                   <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="bg-gray-100 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
                       <tr>
-                        <th className="px-4 py-3">Group Modifier Name</th>
-                        <th className="px-4 py-3">Actions</th>
+                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 dark:text-gray-300">
+                          Group Modifier Name
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 dark:text-gray-300">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                       {modifiers.length > 0 ? (
                         modifiers.map((modifier) => (
-                          <tr key={modifier.id} className="border-b border-gray-200 dark:border-gray-600">
-                            <td className="px-4 py-3">{modifier.name}</td>
-                            <td className="px-4 py-3">
+                          <tr
+                            key={modifier.id}
+                            className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                          >
+                            <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                              {modifier.name}
+                            </td>
+                            <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
                               <div className="flex space-x-2">
                                 <button
-                                  onClick={() => handleEditModifier(modifier.id)}
+                                  onClick={() =>
+                                    handleEditModifier(modifier.id)
+                                  }
                                   className="flex items-center px-3 py-1 text-sm rounded-md"
                                 >
                                   <img
@@ -1058,7 +1190,9 @@ const Menu = () => {
                                   />
                                 </button>
                                 <button
-                                  onClick={() => handleDeleteModifier(modifier.id)}
+                                  onClick={() =>
+                                    handleDeleteModifier(modifier.id)
+                                  }
                                   className="flex items-center px-3 py-1 text-sm rounded-md"
                                 >
                                   <img
@@ -1073,17 +1207,19 @@ const Menu = () => {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="2">
+                          <td colSpan="2" className="px-4 py-4">
                             <div className="flex flex-col items-center justify-center text-center space-y-4 py-10">
                               <img
                                 src="https://www.app.menutigr.com/static/media/emptyIcon.e5d5b5150b5e6208ac7a2f4dfbdf36a1.svg"
                                 alt="No Records"
                                 className="w-20 h-20"
                               />
-                              <p className="text-sm pb-4">
+                              <p className="text-sm text-gray-600 dark:text-gray-400 pb-4">
                                 No records available
                                 <br />
-                                <span className="text-xs">Click 'Add New' to create a new record</span>
+                                <span className="text-xs">
+                                  Click 'Add New' to create a new record
+                                </span>
                               </p>
                             </div>
                           </td>
@@ -1107,30 +1243,47 @@ const Menu = () => {
 
               <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-600">
                 <table className="min-w-full text-left text-sm">
-                  <thead className="border-b border-gray-200 dark:border-gray-600">
+                  <thead className="border-b border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
                     <tr>
-                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Name</th>
-                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Description</th>
-                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Date</th>
-                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200 text-center">Actions</th>
+                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">
+                        Name
+                      </th>
+                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">
+                        Description
+                      </th>
+                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">
+                        Date
+                      </th>
+                      <th className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200 text-center">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                     {archivedMenus.map((item) => (
-                      <tr key={item.id} className="border-t border-gray-200 dark:border-gray-700">
-                        <td className="px-4 py-4">{item.name}</td>
-                        <td className="px-4 py-2">{item.description}</td>
-                        <td className="px-4 py-2">{item.date}</td>
+                      <tr
+                        key={item.id}
+                        className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                      >
+                        <td className="px-4 py-4 text-gray-700 dark:text-gray-300">
+                          {item.name}
+                        </td>
+                        <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
+                          {item.description}
+                        </td>
+                        <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
+                          {item.date}
+                        </td>
                         <td className="px-4 py-2 text-center space-x-4">
                           <button
-                            className="text-blue-600 hover:text-blue-800 cursor-pointer"
+                            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer"
                             title="Restore"
                             onClick={() => handleRestore(item.id)}
                           >
                             <FaHistory />
                           </button>
                           <button
-                            className="text-red-600 hover:text-red-800 cursor-pointer"
+                            className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 cursor-pointer"
                             title="Delete"
                             onClick={() => handleArchiveDelete(item.id)}
                           >
@@ -1141,7 +1294,10 @@ const Menu = () => {
                     ))}
                     {archivedMenus.length === 0 && (
                       <tr>
-                        <td colSpan="4" className="text-center text-sm text-gray-500 py-6">
+                        <td
+                          colSpan="4"
+                          className="text-center text-sm text-gray-500 dark:text-gray-400 py-6"
+                        >
                           No archived items found.
                         </td>
                       </tr>
@@ -1150,8 +1306,10 @@ const Menu = () => {
                 </table>
               </div>
 
-              <div className="flex justify-end items-center px-4 py-3 text-sm mt-2">
-                <span className="mr-4 text-gray-600 dark:text-gray-400">Rows per page: 10</span>
+              <div className="flex justify-end items-center px-4 py-3 text-sm mt-2 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+                <span className="mr-4 text-gray-600 dark:text-gray-400">
+                  Rows per page: 10
+                </span>
                 <span className="mr-4 text-gray-600 dark:text-gray-400">
                   1–{archivedMenus.length} of {archivedMenus.length}
                 </span>

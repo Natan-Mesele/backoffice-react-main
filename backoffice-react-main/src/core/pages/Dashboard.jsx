@@ -3,6 +3,8 @@ import { FaRocket, FaEye, FaChevronDown, FaBars } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css"; // required default style
+import "../../styles/datepicker.css";
 
 const sampleData = {
   Today: {
@@ -91,7 +93,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <div className="p-6 bg-gray-200 min-h-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow rounded-lg transition-colors duration-200">
         <div className="flex flex-col">
@@ -158,7 +160,6 @@ const Dashboard = () => {
                   )}`
                 : "Select Date Range"}
             </button>
-
             {showDatePicker && (
               <div className="absolute z-10 mt-1 bg-white dark:bg-gray-800 p-2 rounded-md shadow-lg transition-colors duration-200">
                 <DatePicker
@@ -236,10 +237,11 @@ const Dashboard = () => {
         </div>
 
         {/* Revenue Card */}
-        <div
-          className="rounded-lg shadow p-6 h-52 flex flex-col items-start"
-          style={{ backgroundColor: "#099D85" }}
-        >
+        <div className="rounded-lg shadow p-6 h-52 flex flex-col items-start relative overflow-hidden bg-[#099D85] dark:bg-[#065F52]">
+          {/* Perfectly Overlapping Half-circles at top right */}
+          <div className="absolute top-0 right-0 w-48 h-28 rounded-bl-full bg-[#0d9488] dark:bg-[#04756a]"></div>
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full bg-[#1B8A70] dark:bg-[#035044]"></div>
+
           <img
             src="https://www.app.menutigr.com/static/media/revenue.6c8de3e78a233ccc1de821451e036f61.svg"
             className="w-6 h-6 cursor-pointer mb-4"
@@ -259,7 +261,18 @@ const Dashboard = () => {
         {/* Customers and Feedback Cards */}
         <div className="flex flex-col gap-4">
           {/* Customers Card */}
-          <div className="bg-[#09203C] rounded-lg shadow p-6 h-24 flex items-center justify-between">
+          <div className="bg-[#09203C] rounded-lg shadow p-6 h-24 flex items-center justify-between relative overflow-hidden">
+            {/* Half-circle at top right */}
+            <div
+              className="absolute top-0 right-0 w-16 h-16 rounded-bl-full"
+              style={{ backgroundColor: "#0A274D" }}
+            ></div>
+            {/* Half-circle at bottom right */}
+            <div
+              className="absolute bottom-0 right-0 w-14 h-16 rounded-tl-full"
+              style={{ backgroundColor: "#12345A" }}
+            ></div>
+
             <div className="flex items-center gap-4">
               <div className="bg-gray-900 p-4 rounded">
                 <img
@@ -280,7 +293,12 @@ const Dashboard = () => {
           </div>
 
           {/* Feedback Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 h-24 flex items-center justify-between transition-colors duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 h-24 flex items-center justify-between relative overflow-hidden transition-colors duration-200">
+            {/* Half-circle at top right */}
+            <div className="absolute top-0 right-0 w-16 h-16 rounded-bl-full bg-[#F5F5F5] dark:bg-[#2D3748] transition-colors duration-200"></div>
+            {/* Half-circle at bottom right */}
+            <div className="absolute bottom-0 right-0 w-14 h-16 rounded-tl-full bg-[#EEEEEE] dark:bg-[#4A5568] transition-colors duration-200"></div>
+
             <div className="flex items-center gap-4">
               <div className="bg-[#FFF8E1] dark:bg-gray-700 p-4 rounded transition-colors duration-200">
                 <img

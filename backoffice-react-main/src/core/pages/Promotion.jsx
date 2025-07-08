@@ -1,9 +1,18 @@
 import React, { useState, useRef } from "react";
-import { FaBullhorn, FaUtensils, FaPlus, FaQuestion, FaArrowUp, FaChevronLeft, FaTrash, FaEdit } from "react-icons/fa";
+import {
+  FaBullhorn,
+  FaUtensils,
+  FaPlus,
+  FaQuestion,
+  FaArrowUp,
+  FaChevronLeft,
+  FaTrash,
+  FaEdit,
+} from "react-icons/fa";
 
 function Promotion() {
   const [isAddingNew, setIsAddingNew] = useState(false);
-  const [currentTab, setCurrentTab] = useState('promotion');
+  const [currentTab, setCurrentTab] = useState("promotion");
   const [promotions, setPromotions] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [promotionData, setPromotionData] = useState({
@@ -15,7 +24,8 @@ function Promotion() {
     stores: "",
     orderType: "",
     customPeriod: false,
-    image: "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png"
+    image:
+      "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png",
   });
   const [focusedField, setFocusedField] = useState(null);
   const fileInputRef = useRef(null);
@@ -26,30 +36,36 @@ function Promotion() {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setPromotionData(prev => ({
+    setPromotionData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSave = () => {
-    if (!promotionData.name || !promotionData.description || !promotionData.discount) {
+    if (
+      !promotionData.name ||
+      !promotionData.description ||
+      !promotionData.discount
+    ) {
       alert("Please fill in all required fields!");
       return;
     }
 
     if (editingId) {
       // Update existing promotion
-      setPromotions(promotions.map(promo =>
-        promo.id === editingId ? { ...promotionData, id: editingId } : promo
-      ));
+      setPromotions(
+        promotions.map((promo) =>
+          promo.id === editingId ? { ...promotionData, id: editingId } : promo
+        )
+      );
     } else {
       // Add new promotion
       const newPromotion = {
         ...promotionData,
         id: Date.now(),
         status: "Active",
-        createdAt: new Date().toLocaleDateString()
+        createdAt: new Date().toLocaleDateString(),
       };
       setPromotions([...promotions, newPromotion]);
     }
@@ -59,7 +75,7 @@ function Promotion() {
   };
 
   const handleEdit = (id) => {
-    const promoToEdit = promotions.find(promo => promo.id === id);
+    const promoToEdit = promotions.find((promo) => promo.id === id);
     if (promoToEdit) {
       setPromotionData(promoToEdit);
       setIsAddingNew(true);
@@ -69,14 +85,21 @@ function Promotion() {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this promotion?")) {
-      setPromotions(promotions.filter(promo => promo.id !== id));
+      setPromotions(promotions.filter((promo) => promo.id !== id));
     }
   };
 
   const togglePromotionStatus = (id) => {
-    setPromotions(promotions.map(promo =>
-      promo.id === id ? { ...promo, status: promo.status === "Active" ? "Inactive" : "Active" } : promo
-    ));
+    setPromotions(
+      promotions.map((promo) =>
+        promo.id === id
+          ? {
+              ...promo,
+              status: promo.status === "Active" ? "Inactive" : "Active",
+            }
+          : promo
+      )
+    );
   };
 
   const handleAddNewClick = () => {
@@ -91,7 +114,8 @@ function Promotion() {
       stores: "",
       orderType: "",
       customPeriod: false,
-      image: "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png"
+      image:
+        "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png",
     });
   };
 
@@ -115,11 +139,15 @@ function Promotion() {
   };
 
   const removeImage = () => {
-    setPromotionData({ ...promotionData, image: "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png" });
+    setPromotionData({
+      ...promotionData,
+      image:
+        "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png",
+    });
   };
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-0 mb-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
         <div className="flex flex-col">
@@ -168,7 +196,9 @@ function Promotion() {
                   <FaChevronLeft />
                 </button>
                 <div className="text-gray-900 dark:text-gray-100 text-md bg-gray-100 dark:bg-gray-700 px-4 py-3 rounded-md select-none">
-                  <span>Promotions</span> <span className="text-gray-400">/</span> <span className="text-primary">Add New</span>
+                  <span>Promotions</span>{" "}
+                  <span className="text-gray-400">/</span>{" "}
+                  <span className="text-primary">Add New</span>
                 </div>
               </div>
               <button
@@ -185,28 +215,37 @@ function Promotion() {
             {/* Tabs */}
             <div className="flex border-b border-gray-300 dark:border-gray-600 mb-6">
               <button
-                className={`px-4 py-2 font-medium cursor-pointer ${currentTab === 'promotion' ? 'border-b-2 border-primary text-primary' : 'text-gray-600 dark:text-gray-300'}`}
-                onClick={() => setCurrentTab('promotion')}
+                className={`px-4 py-2 font-medium cursor-pointer ${
+                  currentTab === "promotion"
+                    ? "border-b-2 border-primary text-primary"
+                    : "text-gray-600 dark:text-gray-300"
+                }`}
+                onClick={() => setCurrentTab("promotion")}
               >
                 Promotion
               </button>
               <button
-                className={`px-4 py-2 font-medium cursor-pointer ${currentTab === 'localize' ? 'border-b-2 border-primary text-primary' : 'text-gray-600 dark:text-gray-300'}`}
-                onClick={() => setCurrentTab('localize')}
+                className={`px-4 py-2 font-medium cursor-pointer ${
+                  currentTab === "localize"
+                    ? "border-b-2 border-primary text-primary"
+                    : "text-gray-600 dark:text-gray-300"
+                }`}
+                onClick={() => setCurrentTab("localize")}
               >
                 Localize
               </button>
             </div>
 
             {/* Tab Content */}
-            {currentTab === 'promotion' ? (
+            {currentTab === "promotion" ? (
               <div className="max-w-2xl mx-auto space-y-6">
                 {/* Info box with ? icon */}
                 <div className="border border-primary rounded-lg p-4 mb-6">
                   <div className="flex items-start">
                     <FaQuestion className="text-primary mr-3 mt-1 flex-shrink-0" />
                     <p className="text-gray-700 dark:text-gray-300">
-                      Discount on your total cart value, usually combined with a condition like minimum ordering amount
+                      Discount on your total cart value, usually combined with a
+                      condition like minimum ordering amount
                     </p>
                   </div>
                 </div>
@@ -214,7 +253,13 @@ function Promotion() {
                 {/* Promotion form fields - all moved to left side */}
                 <div className="space-y-4 max-w-2xl">
                   {/* Promotion type */}
-                  <div className={`flex items-center border ${focusedField === 'type' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "type"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Promotion type <span className="text-red-500">*</span>
                     </span>
@@ -222,7 +267,7 @@ function Promotion() {
                       name="type"
                       value={promotionData.type}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('type')}
+                      onFocus={() => handleFocus("type")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                     >
@@ -233,7 +278,13 @@ function Promotion() {
                   </div>
 
                   {/* Name */}
-                  <div className={`flex items-center border ${focusedField === 'name' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "name"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Name <span className="text-red-500">*</span>
                     </span>
@@ -242,7 +293,7 @@ function Promotion() {
                       name="name"
                       value={promotionData.name}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('name')}
+                      onFocus={() => handleFocus("name")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                       placeholder="Enter promotion name"
@@ -250,7 +301,13 @@ function Promotion() {
                   </div>
 
                   {/* Description */}
-                  <div className={`flex flex-col border ${focusedField === 'description' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex flex-col border ${
+                      focusedField === "description"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
                       Description <span className="text-red-500">*</span>
                     </span>
@@ -258,7 +315,7 @@ function Promotion() {
                       name="description"
                       value={promotionData.description}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('description')}
+                      onFocus={() => handleFocus("description")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-b-md"
                       placeholder="Enter description"
@@ -267,7 +324,13 @@ function Promotion() {
                   </div>
 
                   {/* Discount */}
-                  <div className={`flex items-center border ${focusedField === 'discount' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "discount"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Discount <span className="text-red-500">*</span>
                     </span>
@@ -276,7 +339,7 @@ function Promotion() {
                       name="discount"
                       value={promotionData.discount}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('discount')}
+                      onFocus={() => handleFocus("discount")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none"
                       placeholder="0"
@@ -287,7 +350,13 @@ function Promotion() {
                   </div>
 
                   {/* Min order amount */}
-                  <div className={`flex items-center border ${focusedField === 'minOrderAmount' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "minOrderAmount"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Min order amount <span className="text-red-500">*</span>
                     </span>
@@ -296,7 +365,7 @@ function Promotion() {
                       name="minOrderAmount"
                       value={promotionData.minOrderAmount}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('minOrderAmount')}
+                      onFocus={() => handleFocus("minOrderAmount")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none"
                       placeholder="0"
@@ -307,7 +376,13 @@ function Promotion() {
                   </div>
 
                   {/* Stores */}
-                  <div className={`flex items-center border ${focusedField === 'stores' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "stores"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Stores <span className="text-red-500">*</span>
                     </span>
@@ -315,7 +390,7 @@ function Promotion() {
                       name="stores"
                       value={promotionData.stores}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('stores')}
+                      onFocus={() => handleFocus("stores")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                     >
@@ -326,7 +401,13 @@ function Promotion() {
                   </div>
 
                   {/* Order type */}
-                  <div className={`flex items-center border ${focusedField === 'orderType' ? 'border-primary' : 'border-gray-300 dark:border-gray-600'} rounded-md transition-colors`}>
+                  <div
+                    className={`flex items-center border ${
+                      focusedField === "orderType"
+                        ? "border-primary"
+                        : "border-gray-300 dark:border-gray-600"
+                    } rounded-md transition-colors`}
+                  >
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-r border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 whitespace-nowrap">
                       Order type <span className="text-red-500">*</span>
                     </span>
@@ -334,7 +415,7 @@ function Promotion() {
                       name="orderType"
                       value={promotionData.orderType}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus('orderType')}
+                      onFocus={() => handleFocus("orderType")}
                       onBlur={handleBlur}
                       className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 outline-none rounded-r-md"
                     >
@@ -375,7 +456,8 @@ function Promotion() {
                             alt="Promotion"
                             className="w-24 h-24 object-cover rounded-md"
                           />
-                          {promotionData.image !== "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png" && (
+                          {promotionData.image !==
+                            "https://menutigr-resources.s3.us-west-2.amazonaws.com/default_discount_image.png" && (
                             <button
                               onClick={removeImage}
                               className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
@@ -429,7 +511,8 @@ function Promotion() {
                 <div className="border border-primary rounded-lg px-4 py-1 max-w-xl flex items-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
                   <FaQuestion className="text-primary mr-3" />
                   <p className="text-gray-700 dark:text-gray-300 flex-grow">
-                    Drive sales and attract new customers with targeted promotions
+                    Drive sales and attract new customers with targeted
+                    promotions
                   </p>
                 </div>
               </div>
@@ -474,14 +557,19 @@ function Promotion() {
                           {promo.name}
                         </td>
                         <td className="px-6 py-4 text-gray-900 dark:text-gray-100">
-                          <div className="line-clamp-2">{promo.description}</div>
+                          <div className="line-clamp-2">
+                            {promo.description}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <span className={`px-3 py-1 rounded-sm text-xs font-medium ${promo.status === "Active"
-                              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                              : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                              }`}>
+                            <span
+                              className={`px-3 py-1 rounded-sm text-xs font-medium ${
+                                promo.status === "Active"
+                                  ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                                  : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+                              }`}
+                            >
                               {promo.status}
                             </span>
                           </div>
@@ -523,7 +611,9 @@ function Promotion() {
                           alt="Empty"
                           className="mx-auto h-24 w-24 opacity-50"
                         />
-                        <p className="mt-4 text-gray-500 dark:text-gray-400">No promotions found</p>
+                        <p className="mt-4 text-gray-500 dark:text-gray-400">
+                          No promotions found
+                        </p>
                       </td>
                     </tr>
                   )}
